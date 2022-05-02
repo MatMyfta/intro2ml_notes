@@ -12,14 +12,7 @@ All the utils of the project are collected into the principal file, called [ml.p
 
 ## Usage
 
-In order to compile the latex document into your machine, clone the repository, go to the the clone directory
-
-```bash
-git clone
-cd intro2ml_notes
-```
-
-and run the command
+In order to compile the latex document into your machine, clone the repository, go to the the clone directory and run the command
 
 ```bash
 pdflatex ml
