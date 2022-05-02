@@ -20,4 +20,4 @@ pdflatex ml
 
 ## Error reports
 
-In order to report some errors in the notes, please open an issue specifying the chapter, the section, and the kind of error; or your own correction in a new pull request.
+In order to report some errors in the notes, please open an issue specifying the chapter, the section, and the kind of error; or provide your own correction in a new pull request.

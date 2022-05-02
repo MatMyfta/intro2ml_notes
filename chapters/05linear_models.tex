@@ -18,14 +18,13 @@ A linear model is a model that assumes the data is linearly separable.
 Any pair of values \((w_1,w_2)\) defines a line through the origin: \(w_1f_1 + w_2f_2 = 0\).
 
 \begin{example}
-\begin{wrapfigure}{l}{0.25\textwidth}
+\begin{wrapfigure}{l}{0.35\textwidth}
 \begin{center}
-    \includegraphics[width=0.25\textwidth]{031}
+    \includegraphics[width=0.35\textwidth]{031}
     \label{fig:031}
 \end{center}
-\caption{}
 \end{wrapfigure}
-For example, in Figure~\ref{fig:031} we have the line \(1f_1+2_2 = 0\). This equation means that we have our training data in a two-dimensional space, we have only two features (\(f_1\) and \(f_2\)), and the line that separate our training points is the orange line.
+For example, in the figure on the left we have the line \(1f_1+2_2 = 0\). This equation means that we have our training data in a two-dimensional space, we have only two features (\(f_1\) and \(f_2\)), and the line that separate our training points is the orange line.
 
 We can see the parameters \((w_1=1,w_2=2)\) as the vector perpendicular to the orange line. In fact, the orange line is perpendicular to the vector that starts from the origin \(O(0,0)\), and goes to the point \(w(1,2)\).
 
@@ -43,9 +42,9 @@ We can move our line from the origin, if we use the following equation, that use
 In this case we have a line intersects at \(a\) in the horizontal axis.
 
 A linear model in \(n\)-dimensional space (i.e. \(n\) features) is defined by \(n+1\) weights. In two dimesions, we have a line 
-\begin{equation}
+\begin{equation*}
     w_1f_1+w_2f_2+b=0 \qquad \text{where } b=-a
-\end{equation}
+\end{equation*}
 In three dimensions, we have a plane
 \[w_1f_1+w_2f_2+w_3f_3+b=0\]
 In \(n\) dimensions, we have a \textbf{hyperplane}
@@ -54,7 +53,7 @@ In \(n\) dimensions, we have a \textbf{hyperplane}
 \end{equation}
 
 \subsection{Classifying with linear models}
-Havin define the notion of line and the notion of hyperplane, we can show that a linear model, and in particular an hyperplane, can be used for classification by simply looking at the sign of the following equation:
+Having defined the notion of line and the notion of hyperplane, we can show that a linear model, and in particular an hyperplane, can be used for classification by simply looking at the sign of the following equation:
 \begin{equation}
 \label{eqn:001}
 b+\sum_{i=1}^nw_if_i
@@ -62,9 +61,9 @@ b+\sum_{i=1}^nw_if_i
 if the result of equation \ref{eqn:001} is greater than \(0\), we have a positive example that belongs to the positive class; otherwise, if the result is lower than \(0\), we have a negative example that belongs to the negative class.
 
 \section{Online learning}
-\textbf{Online learning} is a method of machine learning in which data becomes available in a sequential order ad is used to update the best predictor for future data at each step, as opposed to batch learning techniques which generate the best predictor by learning on the etire training data set at once.
+\textbf{Online learning} is a method of machine learning in which data becomes available in a sequential order ad is used to update the best predictor for future data at each step, as opposed to batch learning techniques which generate the best predictor by learning on the entire training data set at once.
 
-Online learning is able to overcome the drawbacks of batch learning in that the predictive model can be updated intantly for any new data instances. Thus, online learning algorithms are far more efficient and scalable for large-scale machine learning tasks in real-world data analytics applications where data are not only large in size, but also arriving at a high velocity.
+Online learning is able to overcome the drawbacks of batch learning in that the predictive model can be updated instantly for any new data instances. Thus, online learning algorithms are far more efficient and scalable for large-scale machine learning tasks in real-world data analytics applications where data are not only large in size, but also arriving at a high velocity.
 
 \subsection{Tasks and applications}
 
@@ -85,7 +84,7 @@ In the modern sense, the perceptron is an algorithm for learning a binary classi
 \end{equation}
 where \(w\) is a vector of real-valued weights, \(w \cdot x\) is the dot product \(\sum_{i=1}^mw_ix_i\), where \(m\) is the number of inputs to the perceptron, and \(b\) is the bias.
 
-The value of \(f(x)\) is used to classify \(x\) as either a positive or a negative instance, in the case of a binary classification problem. If \(b\) is negative, then the weighted combination of inputs must produce a positive value greater thant \(|b|\) in order to push the classifier neuron over the 0 threshold.
+The value of \(f(x)\) is used to classify \(x\) as either a positive or a negative instance, in the case of a binary classification problem. If \(b\) is negative, then the weighted combination of inputs must produce a positive value greater than \(|b|\) in order to push the classifier neuron over the 0 threshold.
 
 Spatially, the bias alters the position of the decision boundary. The perceptron learning algorithm does not terminate if the learning set is not linearly separable. If the vectors are not linearly separable learning will never reach a point where all vectors are classified properly. 
 
@@ -98,19 +97,19 @@ The number of iterations can be used to prevent the overfitting of the perceptro
 
 \subsection{Algorithm}
 
-\begin{algorithm}
+\begin{algorithm}[h!]
 \caption{Perceptron learning}
 \label{alg:perceptron}
 \While{convergence not reached}{
-    \ForEach{training example $f_i$, $label$}{
-        $prediction \gets b + \sum_{i=1}^nw_if_i$
+    \ForEach{training example $f_i$, label}{
+        prediction $\gets b + \sum_{i=1}^nw_if_i$
         \Comment*[r]{check if it is correct}
         \If{not correct}{
             \ForEach{$w_i$}{
-                $w_i \gets w_i + f_i \cdot label$
+                $w_i \gets w_i + f_i \cdot$ label
                 \Comment*[r]{update all the weights}
             }
-            $b \gets b + label$\;
+            $b \gets b +$ label\;
         }
     }
 }
@@ -122,3 +121,14 @@ The number of iterations can be used to prevent the overfitting of the perceptro
 \end{center}
 
 The perceptron algorithm guarantees that finds \textbf{some} line that separates the data, but we have no guarantees that the perceptron have found a special line. This will be especially important when we will discuss the difference between the perceptron and the Support Vector Machine.
+
+\newpage
+\begin{exercise}[topsep=20pt,itemsep=10pt]
+    \ex What is a Linear Model?
+    \ex What is the Bias?
+    \ex How can we classify with linear models?
+    \ex What is Online Learning? What are its tasks and applications?
+    \ex Describe the Perceptron. Is the convergence always reached? How can we bypass the convergence?
+    \ex[!] Provide and describe the Perceptron Algorithm.
+    \ex[!] Draw the perceptron algorithm. How can we train the perceptron?
+\end{exercise}
