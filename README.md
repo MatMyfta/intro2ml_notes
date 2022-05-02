@@ -9,3 +9,18 @@ All the utils of the project are collected into the principal file, called [ml.p
 - [chapters](chapters/) contains the .tex file for each chapter.
   - In each chapter there is a final part that contains exercises, open questions, the questions that contains the '!' symbol are the ones that have been asked in the previous exams.
 - [img](img/) contains all the images files of the project.
+
+# Usage
+
+In order to compile the latex document into your machine, clone the repository, go to the the clone directory
+
+```bash
+git clone
+cd intro2ml_notes
+```
+
+and run the command
+
+```bash
+pdflatex ml
+```
