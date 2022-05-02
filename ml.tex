@@ -1,0 +1,188 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LaTeX book template                           %%
+%% Author:  Amber Jain (http://amberj.devio.us/) %%
+%% License: ISC license                          %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,10pt]{book}
+\usepackage[T1]{fontenc}
+\usepackage{tgbonum}
+\usepackage{microtype}
+\usepackage{tocloft}
+\usepackage{subcaption}
+\usepackage[font={scriptsize}]{caption}
+
+%%%%%%%%%%%%%%%%%
+% math packages %
+%%%%%%%%%%%%%%%%%
+\usepackage{amsmath,amssymb}
+\usepackage{amsthm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Source: http://en.wikibooks.org/wiki/LaTeX/Hyperlinks %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{hyperref}
+\usepackage{cleveref}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+
+%%%%%%%%%%%%%%%%%%
+% other packages %
+%%%%%%%%%%%%%%%%%%
+\usepackage{enumitem}
+
+%%%%%%%%%%
+% images %
+%%%%%%%%%%
+\usepackage{graphicx}
+\graphicspath{ {./img/} } %images path
+\usepackage{wrapfig}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% algorithms pseudocode %
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{algorithm2e}
+\SetKwComment{Comment}{//}{}
+\RestyleAlgo{ruled}
+
+%%%%%%%%%%%%%%%%%%%%%%
+% paragraphs styling %
+%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\parindent}{.5em}
+\setlength{\parskip}{1em}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 'dedication' environment: To add a dedication paragraph at the start of book %
+% Source: http://www.tug.org/pipermail/texhax/2010-June/015184.html            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newenvironment{dedication}
+{
+   \cleardoublepage
+   \thispagestyle{empty}
+   \vspace*{\stretch{1}}
+   \hfill\begin{minipage}[t]{0.66\textwidth}
+   \raggedright
+}
+{
+   \end{minipage}
+   \vspace*{\stretch{3}}
+   \clearpage
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Chapter quote at the start of chapter        %
+% Source: http://tex.stackexchange.com/a/53380 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+\renewcommand{\@chapapp}{}% Not necessary...
+\newenvironment{chapquote}[2][2em]
+  {\setlength{\@tempdima}{#1}%
+   \def\chapquote@author{#2}%
+   \parshape 1 \@tempdima \dimexpr\textwidth-2\@tempdima\relax%
+   \itshape}
+  {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% example custom environment %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{tcolorbox}
+
+\newcounter{example}[section]
+\newenvironment{example}[1][]
+{
+    \vspace{10pt}
+    \noindent
+    \begin{minipage}{\textwidth}
+    \begin{tcolorbox}[
+        colback=white,
+        colframe=black!15,
+        coltitle=black,
+        arc=1pt,
+        title=\textbf{Example~\thesection.\theexample\ ---} #1
+    ]
+    \vspace{5pt}
+    \leavevmode
+    \noindent
+}
+{   
+    \vspace{5pt}
+    \end{tcolorbox} 
+    \end{minipage}
+    \\
+}
+
+
+%%%%%%%%%%%%%%%%%%%%
+% Exercise section %
+%%%%%%%%%%%%%%%%%%%%
+\newlist{exercise}{enumerate}{5}
+\setlist[exercise]{label*=\arabic*.,ref=\arabic*,before={\subsection*{Exercises}}}
+
+% copy \item into \ex
+\let\ex\item
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+% change vector notation %
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% First page of book which contains 'stuff' like: %
+%  - Book title, subtitle                         %
+%  - Book author name                             %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Book's title and subtitle
+\title{\Huge \textbf{A short introduction to Machine Learning}}
+% Author
+\author{\textsc{Mateo Myftaraj}\thanks{\url{https://github.com/MatMyfta}}}
+
+% Redefinition of ToC command to get centered heading
+\renewcommand\cfttoctitlefont{\hfill\Large\bfseries}
+\renewcommand\cftaftertoctitle{\hfill\mbox{}}
+
+\usepackage[compact]{titlesec}
+\titlespacing{\section}{15pt}{25pt}{*0}
+\titlespacing{\subsection}{0pt}{*0}{*0}
+\titlespacing{\subsubsection}{0pt}{*0}{*0}
+
+\begin{document}
+
+\frontmatter
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Auto-generated table of contents, list of figures and list of tables %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents
+
+\mainmatter
+
+% \include{chapters/00preface}
+
+\part{Basics}
+\include{chapters/01introduction}
+\include{chapters/02data_features_models}
+\include{chapters/03generalizationerror_models_hypothesisspace}
+
+\part{Supervised Learning}
+\include{chapters/04knn}
+\include{chapters/05linear_models}
+\include{chapters/06decision_trees}
+\include{chapters/07multiclass_classification}
+\include{chapters/08gradient_descent}
+\include{chapters/09regularization}
+\include{chapters/10svm}
+\include{chapters/11ranking}
+\include{chapters/12neural_networks}
+
+\part{Unsupervised Learning}
+\include{chapters/13unsupervised_learning}
+\include{chapters/14clustering}
+\include{chapters/15deep_generative_models}
+
+\part{Reinforcement Learning}
+\include{chapters/16reinforcement_learning}
+
+\end{document}

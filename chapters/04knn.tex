@@ -1,0 +1,113 @@
+\chapter{\(k\)-Nearest Neighbor}
+After having introduced all the basics of machine learning, we start talking about the specific algorithm in order to address at the beginning of supervised classification problem. The first algorithm we present is one of the simplest one, and it is the \textbf{K-Nearest Neighbor}.
+
+\section{Introduction}
+
+K-Nearest Neighbor classifier is one of the introductory supervised classifiers, which every data science learner should be aware of. This algorithm was first used for a pattern classification task which was first used by Fix \& Hodges in 1951. To be similar the name was given as KNN classifier. KNN aims for pattern recognition tasks.  
+
+K-Nearest Neighbor also known as KNN is a supervised learning algorithm that can be used for regression as well as classification problems. Generally, it is used for classification problems in machine learning. 
+
+In \textbf{KNN classification}, the output is a class membership. An object is classified by a plurality vote of its neighbors, with the object being assigned to the class most common among its \(k\) nearest neighbors (\(k\) is a positive integer, typically small). If \(k=1\), then the object is simply assigned to the class of that single nearest neighbor. 
+
+In \textbf{KNN regression} the output is the property value for the object. This value is the average of the values of \(k\) nearest neighbors.
+
+Both for classification and regression, a useful technique can be to assign weights to the contributions of the neighbors, so that the nearer neighbors contribute more to the average than the more distant ones. For example, a common weighting scheme consists in giving each neighbor a weight of \(\frac 1 d\), where \(d\) is the distance to the neighbor.
+
+\section{Algorithm}
+\begin{wrapfigure}{l}{0.25\textwidth}
+\begin{center}
+    \includegraphics[width=0.25\textwidth]{029}
+    \caption{}
+    \label{fig:029}
+\end{center}
+\end{wrapfigure}
+The training examples are vectors in a multidimensional feature space, each with a class label. The training phase of the algorithm consists only of storing the feature vectors and class labels of the training samples.
+
+In the classification phase, \(k\) is a user-defined constant, and an unlabeled vector is classified by assigning the label which is most frequent amongh the \(k\) training samples nearest to that query point.
+
+In Figure~\ref{fig:029} we have an example of KNN classification. The test sample (the green dot) should be classified either to blue squares or to red triangles. if \(k=3\) (solid line circle) it is assigned to the red triangles because there are two triangles and only one square. If \(k=5\) (dashed line circle) it is assigned to the blue squares.
+
+To classify an example \(d\) you have to find the \(k\) nearest neighbors of \(d\), and then choose as the label the majority label within the \(k\) nearest neighbors. But how do we measure the \emph{nearest}?
+
+\subsection{Euclidean distance}
+The most common choice, is to compute the \textbf{euclidean distance} between the test sample and  his neighbors.
+
+In two dimensions, given two points \(a(a_1, a_2)\) and \(b(b_1, b_2)\), the euclidean distance is computed as follows:
+\[D(a,b) = \sqrt{(a_1-b_1)^2 + (a_2-b_2)^2}\]
+
+In \(n\)-dimensions, we compute the distance in an analogous manner. Given two points \(a(a_1, a_2, ..., a_n)\) and \(b(b_1, b_2, ..., b_n)\), the euclidean distance is computed as follows:
+\begin{align}
+D(a,b)  &= \sqrt{(a_1-b_1)^2 + (a_2-b_2)^2 + ... + (a_n-b_n)^2}\\
+        &=\sqrt{\sum_{d=1}^D(a_d-b_d)^2}
+\end{align}
+
+Measuring distance (or similarity) is a domain-specific problem and there are many, many differen variations.
+
+\subsection{Algorithm}
+\begin{algorithm}
+\caption{kNN-classification($data$, $query$, $k$, $distance_{fn}$)}
+\label{alg:knn}
+$neighborDistance \gets [\ ]$\;
+\ForEach{$(index, example) \in data$}{
+    $distance \gets distance_{fn}(example.pop(), query)$\;
+    $neigborDistance.append((distance,index))$\;
+}
+$sortedND \gets sort(neighborDistance)$\;
+$kNNDistances \gets sortedND[k]$
+\Comment*[r]{Get first k neighbors}
+$kNNLabels \gets [kNNDistances.index]$
+\Comment*[r]{Get labels of first k neighbors}
+\Return{kNNDistances, Counter(labels).mostCommon()}
+\end{algorithm}
+
+
+\section{Decision boundaries}
+The decision boundaries are areas in the features space where the classification of a point (example) changes.
+
+Nearest neighbor rules implicitly compute the decision boundary. It is also possible to compute the decision boundary explicitly, and to do so efficiently, so that the computational complexity is a function of the boundary complexity.
+
+Decision boundaries are useful ways to visualize the complexity of a learned model. Intuitively, a learned model with a decision boundary that is really jagged (like the coastline of Norway) is really complex and prone to overfitting. A learned model with a decision boundary that is really simple (like the bounary between Arizona and Utah) is potentially underfit.
+
+In kNN, once you have chosen \(k\), kNN gives locally defined decision boundaries between classes, that depend on the choice of \(k\).
+
+\section{Choosing \(k\)}
+
+\begin{center}
+    \includegraphics[width=0.75\textwidth]{030}
+    \label{fig:030}
+\end{center}
+
+The best choice of \(k\) depends upon the data; generally, larger values of \(k\) reduces effect of the noise on the classification, but make boundaries between classes less distinct. A good \(k\) can be selected by various heuristic techniques. The special case where the class is predicted to be the class of the closest training sample (i.e. when \(k=1\) is called the nearest neighbor algorithm.
+
+The accuracy of the kNN algorithm can be severely degraded by the presence of noisy or irrelevant features, or if the feature scales are not consistent with their importance. A particularly popular approach is the use of evolutionary algorithms to optimize feature scaling. Another popular approach is to scale fetures by the mutual information of the training data with the training classes. 
+
+In binary classification problems, it is helpful to choose \(k\) to be an odd number as this avoids tied votes. One popular way of choosing the empirically optimal \(k\) in this setting is via bootstrap method.
+
+\section{KNN in practice}
+KNN's main disadvantage of becoming significantly slower as the volume of data increases makes it an impractical choice in environments where predictions need to be made rapidly. Moreover, there are faster algorithms that can produce more accurate classification and regression results.
+
+However, provided you have sufficient computing resources to speedily handle the data you are using to make predictions, KNN can still be useful in solving problems that have solutions that depend on identifying similar objects. 
+
+\subsection{Recommender Systems}
+At scale, this would look like recommending products on Amazon, article on Medium, movies on Netflix, or videos on YouTube. Although, we can be certain they all use more efficient means of making recommendations due to the enormous volume of data they process.
+
+\subsection{Weighted \(k\)-Nearest Neighbor}
+The intuition behind weighted kNN, is to give more weight to the points which are nearby and less weight to the points which are farther away. Any function can be used as a kernel funcion for the weighted kNN classifier whose value decreases as the distance increases.
+
+The \(k\)-nearest neighbor classifier can be viewed as assigning the \(k\) nearest neighbors a weight \(\frac 1 k\) and all others \(0\) weights. This can be generalised to weighted nearest neighbour classifiers. That is, where the \(i\)th nearest neighbour is assigned a weight \(w_{ni}\)m with \(\sum_{i=1}^nw_{ni}=1\). 
+
+\subsubsection{Algorithm}
+\begin{itemize}
+    \item
+    Let \(L=\{(x_i,y_i), i=1,2,...,n\}\) be a training set of observations \(x_i\) with iven class \(y_i\), and let \(x\) be a new observation (query point) whose class label \(y\) has to be predicted.
+    \item
+    Compute \(d(xi,x)\) for \(i=1,2,...,n\), the distance between the query point and every other point in the training set.
+    \item
+    Select \(D' \subset D\), the set of \(k\) nearest training data points to the query points.
+    \item
+    Predict the class of the query point, using distance-weighted voting. The \(v\) represents the class labels. Use the following formula:
+    \begin{equation}
+        y'=argmax_v \sum_{(x_i,y_i) \in D_z}w_i \times I(v=y_i)
+    \end{equation}
+\end{itemize}
+

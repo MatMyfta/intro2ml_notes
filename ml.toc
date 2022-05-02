@@ -1,0 +1,231 @@
+\babel@toc {english}{}
+\contentsline {part}{I\hspace {1em}Basics}{1}{part.1}%
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}When to use Machine Learning}{4}{section.1.1}%
+\contentsline {subsubsection}{When human expertise does not exist}{4}{section.1.1}%
+\contentsline {subsubsection}{When humans cannot explain their expertise}{4}{section.1.1}%
+\contentsline {subsubsection}{When models must be customized}{5}{section.1.1}%
+\contentsline {subsubsection}{When models are based on huge amounts of data}{5}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Definition}{6}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Formally}{6}{subsection.1.2.1}%
+\contentsline {section}{\numberline {1.3}Machine Learning vs Other Disciplines}{7}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Artificial Intelligence}{7}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Deep Learning}{8}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Data Mining}{8}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Back to machine learning}{9}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Data, Features, and Models}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}The learning process}{11}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Data}{12}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Data Split}{13}{subsection.2.2.1}%
+\contentsline {subsubsection}{Training set}{13}{subsection.2.2.1}%
+\contentsline {subsubsection}{Validation test}{14}{figure.caption.8}%
+\contentsline {subsubsection}{Test set}{14}{figure.caption.8}%
+\contentsline {subsection}{\numberline {2.2.2}Data generating distribution}{15}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Feature}{16}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}Characteristics of good features}{17}{subsection.2.3.1}%
+\contentsline {section}{\numberline {2.4}Types of learning}{17}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Supervised learning}{18}{subsection.2.4.1}%
+\contentsline {subsubsection}{Classification}{19}{figure.caption.13}%
+\contentsline {subsubsection}{Regression}{19}{figure.caption.15}%
+\contentsline {subsubsection}{Ranking}{20}{equation.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Unsupervised learning}{21}{subsection.2.4.2}%
+\contentsline {subsubsection}{Clustering}{21}{figure.caption.16}%
+\contentsline {subsubsection}{Anomaly detection}{22}{figure.caption.16}%
+\contentsline {subsubsection}{Dimensionality reduction}{23}{figure.caption.16}%
+\contentsline {subsection}{\numberline {2.4.3}Reinforcement learning}{23}{subsection.2.4.3}%
+\contentsline {subsection}{\numberline {2.4.4}Other Learning Types}{24}{subsection.2.4.4}%
+\contentsline {chapter}{\numberline {3}Generalization error, Models, Hypothesis space}{27}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Task}{27}{section.3.1}%
+\contentsline {paragraph}{Classification task}{27}{section.3.1}%
+\contentsline {paragraph}{Regression task}{28}{section.3.1}%
+\contentsline {paragraph}{Density estimation}{28}{section.3.1}%
+\contentsline {paragraph}{Clustering task}{28}{section.3.1}%
+\contentsline {paragraph}{Dimensionality reduction task}{28}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Model and hypotesis space}{28}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}The ideal target}{30}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}The feasible target}{30}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}The actual target}{30}{subsection.3.2.3}%
+\contentsline {section}{\numberline {3.3}Error function}{30}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Overfitting}{32}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Underfitting}{33}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Estimate the generalization error}{33}{subsection.3.3.3}%
+\contentsline {subsection}{\numberline {3.3.4}Improve the generalization}{34}{subsection.3.3.4}%
+\contentsline {subsubsection}{Regularization}{34}{subsection.3.3.4}%
+\contentsline {part}{II\hspace {1em}Supervised Learning}{37}{part.2}%
+\contentsline {chapter}{\numberline {4}\(k\)-Nearest Neighbor}{39}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Introduction}{39}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Algorithm}{40}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Euclidean distance}{40}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Algorithm}{41}{subsection.4.2.2}%
+\contentsline {section}{\numberline {4.3}Decision boundaries}{41}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Choosing \(k\)}{41}{section.4.4}%
+\contentsline {section}{\numberline {4.5}KNN in practice}{42}{section.4.5}%
+\contentsline {subsection}{\numberline {4.5.1}Recommender Systems}{42}{subsection.4.5.1}%
+\contentsline {subsection}{\numberline {4.5.2}Weighted \(k\)-Nearest Neighbor}{42}{subsection.4.5.2}%
+\contentsline {subsubsection}{Algorithm}{43}{subsection.4.5.2}%
+\contentsline {chapter}{\numberline {5}Linear Models}{45}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Bias}{45}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Define a line}{46}{subsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.1.2}Classifying with linear models}{47}{subsection.5.1.2}%
+\contentsline {section}{\numberline {5.2}Online learning}{47}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Tasks and applications}{47}{subsection.5.2.1}%
+\contentsline {section}{\numberline {5.3}Perceptron}{48}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Convergence and number of iterations}{48}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Algorithm}{49}{subsection.5.3.2}%
+\contentsline {chapter}{\numberline {6}Decision trees}{51}{chapter.6}%
+\contentsline {section}{\numberline {6.1}How decision trees work}{51}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Inference}{52}{subsection.6.1.1}%
+\contentsline {section}{\numberline {6.2}Decision tree learning algorithm}{52}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Growing a leaf}{53}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Growing a node}{53}{subsection.6.2.2}%
+\contentsline {section}{\numberline {6.3}About split selection}{54}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Leaf predictions}{54}{section.6.4}%
+\contentsline {section}{\numberline {6.5}Impurity measures for classification}{54}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Impurity measures for regression}{55}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Split functions}{55}{section.6.7}%
+\contentsline {subsection}{\numberline {6.7.1}Discrete nominal features}{55}{subsection.6.7.1}%
+\contentsline {subsection}{\numberline {6.7.2}Ordinal features}{56}{subsection.6.7.2}%
+\contentsline {subsection}{\numberline {6.7.3}Oblique}{56}{subsection.6.7.3}%
+\contentsline {section}{\numberline {6.8}Overfitting}{56}{section.6.8}%
+\contentsline {subsection}{\numberline {6.8.1}Pruning}{56}{subsection.6.8.1}%
+\contentsline {section}{\numberline {6.9}Random forests}{57}{section.6.9}%
+\contentsline {chapter}{\numberline {7}Multi-class classification}{59}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Extension from binary}{59}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}\(k\)-nearest neighbours}{60}{subsection.7.1.1}%
+\contentsline {subsection}{\numberline {7.1.2}Decistion trees}{60}{subsection.7.1.2}%
+\contentsline {subsection}{\numberline {7.1.3}Perceptron}{60}{subsection.7.1.3}%
+\contentsline {section}{\numberline {7.2}One vs All}{60}{section.7.2}%
+\contentsline {section}{\numberline {7.3}All vs All}{61}{section.7.3}%
+\contentsline {section}{\numberline {7.4}OVA vs AVA}{62}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Evaluation}{63}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Confusion matrix}{63}{subsection.7.5.1}%
+\contentsline {chapter}{\numberline {8}Gradient Descent}{65}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Notation}{65}{section.8.1}%
+\contentsline {section}{\numberline {8.2}The optimization framework for Linear Models}{66}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Convex Surrogate Loss Functions}{66}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Gradients, math review}{67}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Optimization with gradient descent}{68}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Algorithm}{68}{subsection.8.5.1}%
+\contentsline {chapter}{\numberline {9}Regularization}{71}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Regularizers}{71}{section.9.1}%
+\contentsline {section}{\numberline {9.2}\(p\)-norm}{72}{section.9.2}%
+\contentsline {section}{\numberline {9.3}Minimizing with a regularizer}{72}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Model-based machine learning}{73}{subsection.9.3.1}%
+\contentsline {chapter}{\numberline {10}Support Vector Machines}{75}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Large margin classifiers}{75}{section.10.1}%
+\contentsline {subsection}{\numberline {10.1.1}Support vectors}{76}{subsection.10.1.1}%
+\contentsline {subsection}{\numberline {10.1.2}Maximizing the margin}{76}{subsection.10.1.2}%
+\contentsline {section}{\numberline {10.2}Soft margin classification}{77}{section.10.2}%
+\contentsline {section}{\numberline {10.3}Non linearly separable data}{78}{section.10.3}%
+\contentsline {subsection}{\numberline {10.3.1}Dual problem}{78}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {10.3.2}Kernel trick}{79}{subsection.10.3.2}%
+\contentsline {subsubsection}{Mercer's theorem}{79}{equation.10.3.12}%
+\contentsline {subsubsection}{Kernels}{80}{equation.10.3.13}%
+\contentsline {chapter}{\numberline {11}Ranking}{81}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Multilabel classification}{82}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Ranking problems}{82}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}Black box approach}{82}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}Preference function}{83}{subsection.11.2.2}%
+\contentsline {section}{\numberline {11.3}Algorithm}{83}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Bipartite Ranking}{84}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Weighted binary classification}{84}{section.11.5}%
+\contentsline {subsection}{\numberline {11.5.1}\(\omega \)-Ranking}{85}{subsection.11.5.1}%
+\contentsline {chapter}{\numberline {12}Neural Networks}{87}{chapter.12}%
+\contentsline {section}{\numberline {12.1}From Perceptron to Deep Networks}{88}{section.12.1}%
+\contentsline {subsubsection}{Multi-Layer Perceptron}{89}{table.caption.52}%
+\contentsline {subsection}{\numberline {12.1.1}Backpropagation}{89}{subsection.12.1.1}%
+\contentsline {subsubsection}{In a nutshell}{89}{figure.caption.53}%
+\contentsline {section}{\numberline {12.2}Feedforward Networks}{90}{section.12.2}%
+\contentsline {subsection}{\numberline {12.2.1}Training}{91}{subsection.12.2.1}%
+\contentsline {subsubsection}{Cost Function}{92}{figure.caption.55}%
+\contentsline {subsubsection}{Activation function}{92}{figure.caption.56}%
+\contentsline {subsubsection}{Architecture}{93}{figure.caption.56}%
+\contentsline {section}{\numberline {12.3}Backpropagation}{93}{section.12.3}%
+\contentsline {subsection}{\numberline {12.3.1}Step 1: Feedforward propagation}{94}{subsection.12.3.1}%
+\contentsline {subsection}{\numberline {12.3.2}Step 2: Compute error and train}{95}{subsection.12.3.2}%
+\contentsline {subsection}{\numberline {12.3.3}Step 3: Backpropagation}{95}{subsection.12.3.3}%
+\contentsline {section}{\numberline {12.4}Training a Neural Network}{95}{section.12.4}%
+\contentsline {subsection}{\numberline {12.4.1}Gradient Descent}{96}{subsection.12.4.1}%
+\contentsline {subsubsection}{Batch Gradient Descent}{96}{algocf.12}%
+\contentsline {subsubsection}{Stochastic Gradient Descent}{97}{algocf.13}%
+\contentsline {subsubsection}{Momentum}{97}{algocf.14}%
+\contentsline {subsubsection}{Adaptive Learning Rate Methods}{97}{algocf.15}%
+\contentsline {section}{\numberline {12.5}Convolutional Neural Networks}{98}{section.12.5}%
+\contentsline {subsection}{\numberline {12.5.1}Convolutional layers}{98}{subsection.12.5.1}%
+\contentsline {subsubsection}{Convolution}{99}{figure.caption.62}%
+\contentsline {subsubsection}{Non-linearity}{100}{figure.caption.65}%
+\contentsline {subsubsection}{Spatial Pooling}{101}{figure.caption.65}%
+\contentsline {section}{\numberline {12.6}Other Neural Networks}{101}{section.12.6}%
+\contentsline {subsection}{\numberline {12.6.1}Recurrent Neural Networks}{102}{subsection.12.6.1}%
+\contentsline {subsection}{\numberline {12.6.2}Autoencoders}{103}{subsection.12.6.2}%
+\contentsline {part}{III\hspace {1em}Unsupervised Learning}{105}{part.3}%
+\contentsline {chapter}{\numberline {13}Unsupervised Learning}{107}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Tasks in depth}{107}{section.13.1}%
+\contentsline {subsection}{\numberline {13.1.1}Dimensionality Reduction}{107}{subsection.13.1.1}%
+\contentsline {subsection}{\numberline {13.1.2}Clustering}{108}{subsection.13.1.2}%
+\contentsline {subsection}{\numberline {13.1.3}Density Estimation}{109}{subsection.13.1.3}%
+\contentsline {section}{\numberline {13.2}Principal Component Analysis}{109}{section.13.2}%
+\contentsline {subsection}{\numberline {13.2.1}Variance Along Unit Direction}{111}{subsection.13.2.1}%
+\contentsline {subsection}{\numberline {13.2.2}Eigenvalue Decomposition}{111}{subsection.13.2.2}%
+\contentsline {subsubsection}{First Principal Component}{111}{equation.13.2.4}%
+\contentsline {paragraph}{Proof}{112}{equation.13.2.5}%
+\contentsline {subsubsection}{Second Principal Component}{112}{equation.13.2.5}%
+\contentsline {paragraph}{Proof}{112}{equation.13.2.6}%
+\contentsline {subsubsection}{\(i\)-th Principal Component}{112}{equation.13.2.6}%
+\contentsline {subsection}{\numberline {13.2.3}PCA using Eigenvalue Decomosition}{112}{subsection.13.2.3}%
+\contentsline {subsection}{\numberline {13.2.4}PCA Using Singular Value Decomposition (SVD)}{113}{subsection.13.2.4}%
+\contentsline {subsubsection}{Singular Value Decomposition}{113}{subsection.13.2.4}%
+\contentsline {subsubsection}{PCA with SVD}{113}{equation.13.2.8}%
+\contentsline {subsection}{\numberline {13.2.5}Dimensionality Reduction Using PCA}{113}{subsection.13.2.5}%
+\contentsline {subsection}{\numberline {13.2.6}Alternative Interpretation}{113}{subsection.13.2.6}%
+\contentsline {subsection}{\numberline {13.2.7}Kernel PCA}{114}{subsection.13.2.7}%
+\contentsline {section}{\numberline {13.3}\(k\)-Means Clustering}{115}{section.13.3}%
+\contentsline {subsection}{\numberline {13.3.1}Optimization Algorithm}{115}{subsection.13.3.1}%
+\contentsline {subsection}{\numberline {13.3.2}Properties}{115}{subsection.13.3.2}%
+\contentsline {chapter}{\numberline {14}Clustering}{117}{chapter.14}%
+\contentsline {section}{\numberline {14.1}\(k\)-Means}{117}{section.14.1}%
+\contentsline {subsection}{\numberline {14.1.1}Issues}{117}{subsection.14.1.1}%
+\contentsline {subsubsection}{Distance}{118}{figure.caption.81}%
+\contentsline {subsection}{\numberline {14.1.2}Properties}{118}{subsection.14.1.2}%
+\contentsline {section}{\numberline {14.2}Issues for Clustering}{119}{section.14.2}%
+\contentsline {subsection}{\numberline {14.2.1}Types of Clutering Algorithms}{119}{subsection.14.2.1}%
+\contentsline {section}{\numberline {14.3}EM Clustering}{120}{section.14.3}%
+\contentsline {subsection}{\numberline {14.3.1}Soft Clustering in EM Clustering}{120}{subsection.14.3.1}%
+\contentsline {subsubsection}{EM Algorithm}{121}{subsection.14.3.1}%
+\contentsline {subsection}{\numberline {14.3.2}Mixture of Gaussians}{121}{subsection.14.3.2}%
+\contentsline {subsection}{\numberline {14.3.3}Expectation Maximization}{122}{subsection.14.3.3}%
+\contentsline {section}{\numberline {14.4}Other Clustering Algorithms}{122}{section.14.4}%
+\contentsline {subsection}{\numberline {14.4.1}Spectral Clustering}{123}{subsection.14.4.1}%
+\contentsline {subsection}{\numberline {14.4.2}Hierarchical Clustering}{123}{subsection.14.4.2}%
+\contentsline {chapter}{\numberline {15}Deep Generative Models}{125}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Density Estimation}{125}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Variational AutoEncoder (VAE)}{126}{section.15.2}%
+\contentsline {subsection}{\numberline {15.2.1}AutoEncoder}{126}{subsection.15.2.1}%
+\contentsline {subsection}{\numberline {15.2.2}AutoEncoder in Generative Models}{127}{subsection.15.2.2}%
+\contentsline {subsection}{\numberline {15.2.3}Variational Upper Bound}{128}{subsection.15.2.3}%
+\contentsline {subsection}{\numberline {15.2.4}Conditional VAE}{129}{subsection.15.2.4}%
+\contentsline {subsection}{\numberline {15.2.5}Issues with VAEs}{129}{subsection.15.2.5}%
+\contentsline {section}{\numberline {15.3}Generative Adversarial Networks (GAN)}{129}{section.15.3}%
+\contentsline {subsection}{\numberline {15.3.1}Objective}{130}{subsection.15.3.1}%
+\contentsline {subsubsection}{GAN Objective Lower Bound}{130}{equation.15.3.16}%
+\contentsline {subsection}{\numberline {15.3.2}Issues with GANs}{131}{subsection.15.3.2}%
+\contentsline {subsection}{\numberline {15.3.3}More GANs}{131}{subsection.15.3.3}%
+\contentsline {part}{IV\hspace {1em}Reinforcement Learning}{133}{part.4}%
+\contentsline {chapter}{\numberline {16}Reinforcement Learning}{135}{chapter.16}%
+\contentsline {section}{\numberline {16.1}The Idea}{135}{section.16.1}%
+\contentsline {section}{\numberline {16.2}Markov Decision Process}{137}{section.16.2}%
+\contentsline {subsection}{\numberline {16.2.1}Definition}{137}{subsection.16.2.1}%
+\contentsline {subsection}{\numberline {16.2.2}MDP Loop}{138}{subsection.16.2.2}%
+\contentsline {subsection}{\numberline {16.2.3}Objective}{138}{subsection.16.2.3}%
+\contentsline {subsubsection}{Cumulative Discounted Rewards}{139}{subsection.16.2.3}%
+\contentsline {subsection}{\numberline {16.2.4}Reinforcement Learning vs Supervised Learning}{139}{subsection.16.2.4}%
+\contentsline {section}{\numberline {16.3}Value Based Methods}{140}{section.16.3}%
+\contentsline {subsection}{\numberline {16.3.1}\(Q\)-Learning}{140}{subsection.16.3.1}%
+\contentsline {subsubsection}{\(Q\)-Value Function}{140}{subsection.16.3.1}%
+\contentsline {subsubsection}{Bellman Equation}{141}{figure.caption.99}%
+\contentsline {subsubsection}{Algorithm}{141}{equation.16.3.11}%
+\contentsline {subsection}{\numberline {16.3.2}Deep \(Q\)-Learning}{143}{subsection.16.3.2}%
+\contentsline {section}{\numberline {16.4}Policy Gradient Methods}{143}{section.16.4}%
+\contentsline {subsection}{\numberline {16.4.1}Objective Function}{144}{subsection.16.4.1}%
+\contentsline {subsubsection}{Optimization}{144}{equation.16.4.21}%
+\contentsline {subsection}{\numberline {16.4.2}Reinforce Algorithm}{145}{subsection.16.4.2}%
