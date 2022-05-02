@@ -106,7 +106,7 @@ Typically in machine learning problems, we seek to minimize the error between th
 
 Error function vary with the type of problem we are trying to solve. Regression problems that attempt to predict a continuous value have one set of loss functions, while the classification problems where the algorithm attempts to classify the training example into one of the target classes have another set of error/cost function.
 
-Typically, the generalization and training error function can be written in terms of a pointwise loss \(l(f; z)\) measuring the error incurred by \(f\) on the training example \(z\).
+Typically, the generalization and training error function can be written in terms of a pointwise\footnote{\textbf{pointwise}: is used to indicate that a certain property is defined by onsidering each value \(f(x)\) of some function \(f\).} loss \(l(f; z)\) measuring the error incurred by \(f\) on the training example \(z\).
 
 \begin{align}
     &E(f; p_{\text{data}}) = E_{z \sim p_{\text{data}}}[l(f;z)]\\
@@ -148,7 +148,7 @@ Let us put all the charts together, and build a recap chart for the \(f^*(D_n)\)
 % \end{center}
 % \end{figure}
 
-After performing our search, we obtain our learning output, this could introduce two potential problems, overfitting and underfitting.
+After performing our search we obtain our learning output, but this could introduce two potential problems: overfitting and underfitting.
 \begin{figure}[h]
 \begin{center}
     \includegraphics[width=0.75\textwidth]{025}
@@ -159,12 +159,12 @@ After performing our search, we obtain our learning output, this could introduce
 \subsection{Overfitting}
 \textbf{Overfitting} is the production of an analysis that corresponds too closely or exactly to a particular set of data, and may therefore fail to fit additional data or predict future observations reliably.
 
-An overfitted model is a statistical model that contains more parameters than can be justified by the data. The essence of overfitting is to have unknowningly extracted some of the residual variatione (i.e., the noise) as if the variation represented underlying model structure.
+An overfitted model is a statistical model that contains more parameters than can be justified by the data. The essence of overfitting is to have unknowningly extracted some of the residual variation (i.e., the noise) as if the variation represented underlying model structure.
 
 Overfitting occurs when the learned function \(\Hat{f}_H^*\), becomes sensitive to the noise in the sample. As the result, the function will perform well on the training set but not perform well on other data from the joint probability distribution of \(x\) and \(y\). Thus, the more overfitting occurs, the larger the generalization error.
 
 \subsection{Underfitting}
-\textbf{Underfitting} occurs when a machine learning algorithm cannot adequately capture the underlying structure of the data. It occurs when the model or algorithm shows low variance but high bias. It is often a result of an excessively simple model which is not able to process the complexity of the problem. This results in a model which is not suitable to handle all the signal and is therefore orced to take some signal as noise. 
+\textbf{Underfitting} occurs when a machine learning algorithm cannot adequately capture the underlying structure of the data. It occurs when the model or algorithm shows low variance but high bias. It is often a result of an excessively simple model which is not able to process the complexity of the problem. This results in a model which is not suitable to handle all the signal and is therefore forced to take some signal as noise. 
 
 If instead a model is capable to handle the signal but anyways takes a part of it as noise as well, it is also considered to be underfitted. The latter case can happen if the loss function of a model includes a penalty which is too high in that specific case.
 
@@ -180,14 +180,12 @@ We use the training set to find the best model, then the validation set to find 
     \includegraphics[width=0.75\textwidth]{026}
     \label{fig:026}
 \end{center}
-With the first model in Figure~\ref{fig:026}, there is an underfitting, high error, low performance in training and validation set. On the other side, with the last model there is overfitting, we approximate with almost 0 errors on training data, while performing poorly on unknown test data represented by smooth curve.
+With the first model in Figure~\ref{fig:026}, there is an underfitting, high error, low performance in training and validation set. On the other side, with the last model there is overfitting, we approximate with almost 0 errors on training data, while performing poorly on unknown test data represented by a smooth curve.
 
 \end{example}
 
 \subsection{Improve the generalization}
-In order to improve generalization well, one needs to avoid both underfitting of the training data and overfitting of the training data.
-
-There are a number of approeaches for improving generalization, one can:
+In order to improve generalization well, one needs to avoid both underfitting and overfitting of the training data. There are a number of approaches for improving generalization, one can:
 \begin{itemize}
     \item
     Avoid to obtain the minimum on training error;
@@ -212,21 +210,10 @@ We regularize by penalizing polynomials with large coefficients:
 \[||w||^2 = \sum_i=w_i^2\]
 We invoke norm regularization and set lambda hyperparameters by considering performance on validation set. The lambda parameter regulates the trade-off between underfitting and overfitting
 
-% \begin{figure}[t!]
-%     \begin{center}
-%         \includegraphics[width=0.75\textwidth]{028}
-%         \caption{Generalization vs. data size for the polynomial curve fitting.}
-%         \label{fig:028}
-%     \end{center}
-% \end{figure}
-
-% \begin{figure}[h]
-% \begin{center}
-%     \includegraphics[width=0.75\textwidth]{027}
-%     \caption{}
-%     \label{fig:027}
-% \end{center}
-% \end{figure}
+\begin{center}
+    \includegraphics[width=0.75\textwidth]{027}
+    \label{fig:027}
+\end{center}
 
 \end{example}
 
@@ -242,6 +229,13 @@ There are other approaches one can attempt, for example:
     Combine prediction from multiple, decorrelated models to have preditions that are independent, and merging them we will probably get better labels. This technique is called \emph{ensembling}.
 \end{itemize}
 
+\begin{figure}[t!]
+    \begin{center}
+        \includegraphics[width=0.75\textwidth]{028}
+        \caption{Generalization vs. data size for the polynomial curve fitting.}
+        \label{fig:028}
+    \end{center}
+\end{figure}
 \begin{example}[Polynomial curve fitting]
 Let's see the modification of the generalization in respect to the data size.
 \[E(f;D_n) \to E(f;p_{\text{data}}) \qquad \text{as } n \to \infty\]
@@ -255,4 +249,11 @@ A graphical representation is provided in Figure~\ref{fig:028}.
 
 \newpage
 \begin{exercise}[topsep=20pt, itemsep=10pt]
+    \ex Give the definition of Task. Provide the tasks of classification, regression, density estimation, clustering, and dimensionality reduction.
+    \ex What is a model? Why do we need the hypothesis space?
+    \ex How does the feasible target differ from the ideal target? How does the actual target differ from the feasible target? Why does the actual target need to differ from the actual target?
+    \ex Provide the definition of error function.
+    \ex What are overfitting and underfitting? How are they obtained?
+    \ex How is the generalization error estimated?
+    \ex How can the generalization be improved?
 \end{exercise}
