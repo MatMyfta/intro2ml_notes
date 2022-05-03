@@ -1,28 +1,28 @@
 \chapter{Gradient Descent}
 
-Gradient descent is a first-order iterative optimization algorithm for finding a local minimum of a differentiable function. The idea is to take repeated steps in the opposite direction of the gradient of the funciont at the current point, because this is the direction of steepest descent. Conversely, stepping in the direction of the gradient will lead to a local maximum of that function; the preocedure is then known as \textbf{gradient ascent}.
+Gradient descent is a first-order iterative optimization algorithm for finding a local minimum of a differentiable function. The idea is to take repeated steps in the opposite direction of the gradient of the function at the current point, because this is the direction of steepest descent. Conversely, stepping in the direction of the gradient will lead to a local maximum of that function; the preocedure is then known as \textbf{gradient ascent}.
 
 \section{Notation}
 Let's introduce some convenient notation. The indicator function is a function for turning \texttt{true} and \texttt{false} answers into numbers or counts:
-\begin{align}
+\begin{equation}
     1[x] = \begin{cases}
         1\qquad &\text{if }x=\texttt{true}\\
         0\qquad &\text{if }x=\texttt{false}\\
     \end{cases}
-\end{align}
+\end{equation}
 We use a \textbf{vector notation}. We represent an example \(f_1,f_2,...,f_m\) as a single vector, \(\vec{x}\). Similarly, we can represent the weight \(w_1,w_2,...,w_m\) as a single vector, \(\vec{w}\).
 
 The dot-product between two vectors \(\vec{a}\) and \(\vec{b}\) is defined as:
-\begin{align}
+\begin{equation}
     a \cdot b = \sum_{j=1}^m a_jb_j
-\end{align}
+\end{equation}
 
 \section{The optimization framework for Linear Models}
-We have already seen the perceptron as a way of finding a weight vector \(\vec{w}\) and bias \(b\) that do a good job of separating positive training examles from negative training examples. The goal of the perceptron was to find a separating hyperplane for some training data set. Not all data sets are linearly separable. In the case that your training data \emph{isn't} linearly separable, you might want to find the hyperplane that makes the \emph{fewest errors} on the training data. We can write this down as a formal mathematics optimization problem as follows:
-\begin{align}
+We have already seen the perceptron as a way of finding a weight vector \(\vec{w}\) and bias \(b\) that do a good job of separating positive training examples from negative training examples. The goal of the perceptron was to find a separating hyperplane for some training data set. Not all data sets are linearly separable. In the case that your training data \emph{isn't} linearly separable, you might want to find the hyperplane that makes the \emph{fewest errors} on the training data. We can write this down as a formal mathematics optimization problem as follows:
+\begin{equation}
     \label{eqn:optimization}
     \min_{w,b} \sum_n 1[y_n(\vec{w} \cdot \vec{x} + b) > 0]
-\end{align}
+\end{equation}
 The objective function is the thing we are trying to minimize. In this case, the objective function is simply the \textbf{error rate} of the linear classifier parametrized by \(\vec{w}\), \(b\).
 
 We know that the perceptron algorithm is guaranteed to find parameters for this model if the data is linearly separable. In other words, if the optimum of \ref{eqn:optimization} is zero, then the perceptron will efficiently find parameters for this model.
@@ -30,7 +30,7 @@ We know that the perceptron algorithm is guaranteed to find parameters for this 
 \section{Convex Surrogate Loss Functions}
 There are two equivalent definitions of a convex function. The first is that it's second derivative is always non-negative. The second definition is that any chord of the function lies above it.
 
-Convex functions are nice because they are easy to minimize. This leads to the idea of \textbf{convex surrogate loss functions}. Since zero/one loss is hard to optimize, we want to optimize something else, instead. Since convex functions are easy to optimize, we wanto to approximate zero/one loss with a convex function This approximating function will be called a \textbf{surrogate loss}. The surrogate losses we construct will always be \emph{upper bounds} on the true loss function: this guarantees that if you minimize the surrogate loss, you are also pushing down the real loss.
+Convex functions are nice because they are easy to minimize. This leads to the idea of \textbf{convex surrogate loss functions}. Since zero/one loss is hard to optimize, we want to optimize something else, instead. Since convex functions are easy to optimize, we want to approximate zero/one loss with a convex function. This approximating function will be called a \textbf{surrogate loss}. The surrogate losses we construct will always be \emph{upper bounds} on the true loss function: this guarantees that if you minimize the surrogate loss, you are also pushing down the real loss.
 
 There are four common surrogate loss functions, each with their own properties:
 \begin{align}
@@ -42,29 +42,29 @@ There are four common surrogate loss functions, each with their own properties:
 \end{align}
 
 There are two big differences in these loss functions. The first is how \emph{upset} they get by erroneous predictions. In the case of hinge and logistic loss, the growth of the function as \(\hat{y}\) goes negative is linear. For squared and exponential loss, it is super-linear. This means that exponential loss would rather get a few examples a little wrong than one example really wrong.
-The other difference is how they deal with very confident correct predictions. Once \(y\hat{y}>1\), hinge loss does not care any more, byt logistic and exponential loss still think you can do better. On the other hand, squared loss thinks it's just as bad to predict \(+3\) on a positive example as it is to predict \(-1\) on a positive example.
+The other difference is how they deal with very confident correct predictions. Once \(y\hat{y}>1\), hinge loss does not care any more, but logistic and exponential loss still think you can do better. On the other hand, squared loss thinks it's just as bad to predict \(+3\) on a positive example as it is to predict \(-1\) on a positive example.
 
 \begin{figure}[t]
-    \begin{center}
-        \includegraphics[width=\textwidth]{039}
-        \vspace*{-25pt}
-    \end{center}
-    \caption{Surrogate loss functions}
-    \label{fig:039}
-    \end{figure}
+\begin{center}
+    \includegraphics[width=\textwidth]{039}
+    \vspace*{-25pt}
+\end{center}
+\caption{Surrogate loss functions}
+\label{fig:039}
+\end{figure}
 
 \section{Gradients, math review}
 A gradient is a multidimensional generalization of a derivative. Suppose you have a function \(f : \mathbb{R}^D \to \mathbb{R}\) that takes a vector \(\vec{x} = \langle x_1, x_2, ..., x_D \rangle \) as input and produces a scalar value as output.
 
-You can differentiate this function according to any one of the inputs; for instance, you can compute \(\frac {\delta f} {\delta x_5}\) to get the derivative with respect to the fifth input. The \textbf{gradient} of \(f\) is just the vector consissting of the derivative \(f\) with respect to each of its input coordinates independently, and is denoted \(\nabla f\), or, when the input to \(f\) is ambiguous, \(\nabla_x f\). This is defined as:
+You can differentiate this function according to any one of the inputs; for instance, you can compute \(\frac {\delta f} {\delta x_5}\) to get the derivative with respect to the fifth input. The \textbf{gradient} of \(f\) is just the vector consisting of the derivative \(f\) with respect to each of its input coordinates independently, and is denoted \(\nabla f\), or, when the input to \(f\) is ambiguous, \(\nabla_x f\). This is defined as:
 \begin{align}
-    \nabla_x f = \langle \frac{\delta f}{\delta x_1}, \frac{\delta f}{\delta x_2}, ..., \frac{\delta f}{\delta x_D} \rangle
+    \nabla_x f = \left\langle \frac{\delta f}{\delta x_1}, \frac{\delta f}{\delta x_2}, ..., \frac{\delta f}{\delta x_D} \right\rangle
 \end{align}
 For example, consider the function \(f(x_1,x_2,x_3) = x_1^3+5x_1x_2-3x_2x_3^2\). The gradient is:
 \begin{align}
     \nabla_x f = \langle 3x_1^2 + 5x_2, 5x_1-3x_3^2, -6x_2x_3 \rangle
 \end{align}
-Note that if \(f : \mathbb{R}^ \to \mathbb{R}\), thent \(\nabla f : \mathbb{R}^D \to \mathbb{R}^D\). If you evaluate \(\nabla f(x)\), this will give you the gradient at \(\vec{x}\), a vector in \(\mathbb{R}^D\). This vector can be interpreted as the direction of \textbf{steepest ascent}: namely, if you were to traver an infinitesimal amount in the direction of the gradient, you would go uphill the most.
+Note that if \(f : \mathbb{R}^ \to \mathbb{R}\), then \(\nabla f : \mathbb{R}^D \to \mathbb{R}^D\). If you evaluate \(\nabla f(x)\), this will give you the gradient at \(\vec{x}\), a vector in \(\mathbb{R}^D\). This vector can be interpreted as the direction of \textbf{steepest ascent}: namely, if you were to traver an infinitesimal amount in the direction of the gradient, you would go uphill the most.
 
 \section{Optimization with gradient descent}
 Suppose you are trying to find the maximum of a function \(f(\vec{x})\). The optimizer maintains a current estimate of the parameter of interest, \(\vec{x}\). At each step, it measures the \textbf{gradient} of the function it is trying to optimize. This measurement occurs at the current location, \(\vec{x}\). Call the gradient \(\vec{g}\). It then takes a step in the direction of the gradient, where the size of the step is controlled by a parameter \(\eta\). The complete step is \(\vec{x} \gets \vec{x} + \eta \vec{g}\). This is the basic idea of \textbf{gradient ascent}.
@@ -111,8 +111,18 @@ Let's now take this result and return to expand the equation \ref{eqn:loss_deriv
     \frac \delta {\delta w_j} &= \sum_{i=1}^n \exp (-y_i (w \cdot x_i + b)) \frac \delta {\delta w_j} -y_i (w \cdot x_i + b) \\
     &= \sum_{i=1}^n -y_i x_{ij} \exp (-y_i (w \cdot x_i + b))
 \end{align}
-That means that for each example \(x_i\), the exponential update rule is:
+That means that for each example \(x_i\), the \textbf{exponential update rule} is:
 \begin{equation}
     w_j = w_j + \eta y_i x_{ij} exp(-y_i (w \cdot x_i + b))
 \end{equation}
-If you remember from \ref{alg:perceptron} perceptron algorithm, there is a similarity: \(w_i \gets w_i + f_i*label\). In practice: \(w_j \gets w_j + x_{ij} y_i c\), where \(c = \eta exp(-y_i (w \cdot x_i + b))\).
+If you remember from Algorithm \ref{alg:perceptron} perceptron algorithm, there is a similarity: \(w_i \gets w_i + f_i*label\). In practice: \(w_j \gets w_j + x_{ij} y_i c\), where \(c = \eta exp(-y_i (w \cdot x_i + b))\).
+
+\newpage
+\begin{exercise}[topsep=20pt,itemsep=10pt]
+    \ex[!] What is gradient descent?
+    \ex What is the optimization framework for non linearly separable training data?
+    \ex What is a convex surrogate loss function?
+    \ex How can we perform optimization with gradient descent?
+    \ex[!] Describe the update of the gradient descent, and the update rule with loss.
+    \ex[!] How does the perceptron update? How does the gradient descent update?
+\end{exercise}

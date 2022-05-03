@@ -41,23 +41,19 @@ We can move our line from the origin, if we use the following equation, that use
 \[w_1f_1+w_2f_2=a\]
 In this case we have a line intersects at \(a\) in the horizontal axis.
 
-A linear model in \(n\)-dimensional space (i.e. \(n\) features) is defined by \(n+1\) weights. In two dimesions, we have a line 
-\begin{equation*}
-    w_1f_1+w_2f_2+b=0 \qquad \text{where } b=-a
-\end{equation*}
-In three dimensions, we have a plane
-\[w_1f_1+w_2f_2+w_3f_3+b=0\]
-In \(n\) dimensions, we have a \textbf{hyperplane}
-\begin{equation}
-    b+\sum_{i=1}^nw_if_i=0
-\end{equation}
+A linear model in \(n\)-dimensional space (i.e. \(n\) features) is defined by \(n+1\) weights. In two dimesions, we have a \textbf{line}, in three dimensions, we have a \textbf{plane}, and in \(n\) dimensions, we have a \textbf{hyperplane}.
+\begin{align}
+    &\text{line}:\ w_1f_1+w_2f_2+b=0 \qquad \text{where } b=-a\\
+    &\text{plane}:\ w_1f_1+w_2f_2+w_3f_3+b=0\\
+    &\text{hyperplane}:\ b+\sum_{i=1}^nw_if_i=0
+\end{align}
 
 \subsection{Classifying with linear models}
-Having defined the notion of line and the notion of hyperplane, we can show that a linear model, and in particular an hyperplane, can be used for classification by simply looking at the sign of the following equation:
-\begin{equation}
+Having defined the notion of line and the notion of hyperplane, we can show that a linear model, and in particular an hyperplane, can be used for classification by simply looking at the sign of the equation:
+\begin{equation*}
 \label{eqn:001}
 b+\sum_{i=1}^nw_if_i
-\end{equation}
+\end{equation*}
 if the result of equation \ref{eqn:001} is greater than \(0\), we have a positive example that belongs to the positive class; otherwise, if the result is lower than \(0\), we have a negative example that belongs to the negative class.
 
 \section{Online learning}
@@ -66,37 +62,33 @@ if the result of equation \ref{eqn:001} is greater than \(0\), we have a positiv
 Online learning is able to overcome the drawbacks of batch learning in that the predictive model can be updated instantly for any new data instances. Thus, online learning algorithms are far more efficient and scalable for large-scale machine learning tasks in real-world data analytics applications where data are not only large in size, but also arriving at a high velocity.
 
 \subsection{Tasks and applications}
-
 Online learning algorithms can be derived for supervised learning tasks. One of the most common tasks is classification, aiming to predict the categories for a new data instance belongs to, on the basis of observing past training data instances whose category labels are given. For example, a commonly studied task in online learning is \textbf{online binary classification} (e.g., spam email filtering) which only involves two categories (“spam” vs “benign” emails); other types of supervised classification tasks include multi-class classification, multi-label classification, and multiple-instance classification, etc.
 
 In addition to classification tasks, another common supervised learning task is \textbf{regression analysis}, which refers to the learning process for estimating the relationships among variables (typically between a dependent variable and one or more independent variables). Online learning techniques are naturally applied for regression analysis tasks, e.g., time series analysis in financial markets where data instances naturally arrive in a sequential way. Besides, another application for online learning with financial time series data is \textbf{online portfolio section} where an online learner aims to find a good (e.g., profitable and low-risk) strategy for making a sequence of decisions for portfolio selection.
 
 \section{Perceptron}
 
-The \textbf{perceptron} is an algorithm for supervised learning of binary classifiers. A binary classifier is a function which can decide wheter or not an input, represented by a vectior of numbers, belongs to some specific class. 
+The \textbf{perceptron} is an algorithm for supervised learning of binary classifiers. A binary classifier is a function which can decide wheter or not an input, represented by a vectior of numbers, belongs to some specific class. It is a type of linear classifier that makes its predictions based on a linear predictor function combining a set of weights with the feature vector.
+
+The perceptron algorithm was intended to be a machine, rather than a program, and while its first implementation was in software, it was subsequently implemented in custom-built hardware as the \emph{"Mark 1 perceptron"}. This machine was designed for image recognition: it had an array of 400 photocells, randomly connected to the neurons. Weights were encoded in potentiometers, and weight updates during learning were performed by electric motors. Although the perceptron initially seemed promising, it was quickly proved that perceptrons could not be trained to recognise many classes of patterns. This caused the field of neural network research to stagnate for many years.
 
 In the modern sense, the perceptron is an algorithm for learning a binary classifier called a \text{threshold function}: a function that maps its input \(x\) to an output value \(f(x)\):
 \begin{equation}
     f(x) = \begin{cases}
-        1               &\text{if \(w \cdot x + b > 0\), } \\
-        0               &\text{otherwise}\\
+        1 &\text{if \(w \cdot x + b > 0\), } \\
+        0 &\text{otherwise}\\
     \end{cases}
 \end{equation}
 where \(w\) is a vector of real-valued weights, \(w \cdot x\) is the dot product \(\sum_{i=1}^mw_ix_i\), where \(m\) is the number of inputs to the perceptron, and \(b\) is the bias.
 
-The value of \(f(x)\) is used to classify \(x\) as either a positive or a negative instance, in the case of a binary classification problem. If \(b\) is negative, then the weighted combination of inputs must produce a positive value greater than \(|b|\) in order to push the classifier neuron over the 0 threshold.
-
-Spatially, the bias alters the position of the decision boundary. The perceptron learning algorithm does not terminate if the learning set is not linearly separable. If the vectors are not linearly separable learning will never reach a point where all vectors are classified properly. 
+The value of \(f(x)\) is used to classify \(x\) as either a positive or a negative instance, in the case of a binary classification problem. If \(b\) is negative, then the weighted combination of inputs must produce a positive value greater than \(|b|\) in order to push the classifier neuron over the 0 threshold. Spatially, the bias alters the position of the decision boundary. 
 
 \subsection{Convergence and number of iterations}
-We will have convergence when the data are linearly separable, but when data is not linearly separable, we have to set up a number of iterations, otherwise the algorithm will fall in an infinite loop.
+The perceptron learning algorithm does not terminate if the learning set is not linearly separable. The training instances are linearly separable if, given two classes of examples, there exists a hyperplane that will separate the two classes. If the vectors are not linearly separable learning will never reach a point where all vectors are classified properly. The most famous example of the perceptron's inability to solve problems with linearly nonseparable vectors is the Boolean exlusive-or problem.
 
-The training instances are linearly separable if, given two classes of examples, there exists a hyperplane that will separate the two classes.
-
-The number of iterations can be used to prevent the overfitting of the perceptron algorithm.
+In order to prevent an infinite loop we can use a maximum number of iteration in the algorithm. This number of iterations can be used not only to prevent infinite loops, but either to reduce the probability of an overfitted model.
 
 \subsection{Algorithm}
-
 \begin{algorithm}[h!]
 \caption{Perceptron learning}
 \label{alg:perceptron}
@@ -115,10 +107,12 @@ The number of iterations can be used to prevent the overfitting of the perceptro
 }
 \end{algorithm}
 
+\begin{figure}[t]
 \begin{center}
-    \includegraphics[width=0.75\textwidth]{032}
+    \includegraphics[width=\textwidth]{032}
     \label{fig:032}
 \end{center}
+\end{figure}
 
 The perceptron algorithm guarantees that finds \textbf{some} line that separates the data, but we have no guarantees that the perceptron have found a special line. This will be especially important when we will discuss the difference between the perceptron and the Support Vector Machine.
 
