@@ -21,7 +21,7 @@ Decision tree learning is a powerful classification technique. The tree tries to
 \subsubsection{Perceptron}
 It is hard to separate three or more classes with just one line, so the perceptron algorithm need some changes to fit the multiclass classification problem.
 
-Using a binary classifier as a black box, can reduce the task of multiclass classification to the binary case? There are multiple ways to decompose the multiclass prediction into multiple binary decisions. Two approaches are:
+Using a binary classifier as a \emph{black box}, can reduce the task of multiclass classification to the binary case? There are multiple ways to decompose the multiclass prediction into multiple binary decisions. Two approaches are:
 \begin{itemize}
     \item One-versus-all,
     \item All-versus-all.
@@ -39,46 +39,53 @@ Using a binary classifier as a black box, can reduce the task of multiclass clas
 \section{One vs All}
 A very common approach is the \textbf{one versus all} technique. To perform OVA, you train \(K\)-many binary classifiers \(f_1,...,f_K\). Each classifier sees all of the training data. Classifier \(f_i\) receives all examples labeled with class \(i\) as positives and all other examples as negatives.
 
-At test time, whichever classifier predicts positive wins, with ties broken randomly.
+At test time, whichever classifier predicts positive wins, with ties broken randomly. The problem with this approach is that we could have samples that are in \emph{gray areas}, this means that are not classifiable. If the classifier doesn't provide confidence and there is ambiguity, the model should pick one of the ones in conflict. But in general classifiers provide a confidence value, then we can pick the most confident positive value, and if none we can pick the nearest.
+
+The training algorithm is very simple, we iterate \(K\) times, where \(K\) is the number of categories, taking the original data in the multiclass domain \(D^\text{multiclass}\), we create a new dataset \(D^\text{bin}\) where we have positive \(i\) and negative \(\neg i\). Now we can do the binary train of each of these datasets, in order to train a model that recognizes if the data is or is not a specific class. 
 
 \begin{algorithm}
-    \caption{OneVersusAllTrain($D^\text{multiclass}$, $BinaryTrain$)}
-    \label{alg:ovatrain}
+\caption{OneVersusAllTrain($D^\text{multiclass}$, $BinaryTrain$)}
+\label{alg:ovatrain}
 \For{$i \gets 1,...,K$}{
 	$D^\text{bin} \gets$ relabel $D^\text{multiclass}$ so class $i$ is positive, and class $\neg i$ is negative\;
 	$f_i \gets \text{BinaryTrain}(D^\text{bin})$\;
 }
 \Return{$f_1,...,f_K$}
-    \end{algorithm}
+\end{algorithm}
 
 In the testing procedure, the prediction of the \(i\)th classifier is added to the overall score for class \(i\). Thus, if the prediction is positive, class \(i\) gets a vote; if the prediction is negative, every one else (implicitly) gets a vote.
 
-	\begin{algorithm}
-		\caption{OneVersusAllTest($f_1,...,f_K$, $x$)}
-		\label{alg:ovatest}
-		$score \gets \langle 0,0,...,0 \rangle$\;
-	\For{$i \gets 1,...,K$}{
-		$y \gets f_i(x)$\;
-		$score_i \gets score_i + y$\;
-	}
-	\Return{$\text{argmax}_k\ score_k$}
-		\end{algorithm}
+\begin{algorithm}
+\caption{OneVersusAllTest($f_1,...,f_K$, $x$)}
+\label{alg:ovatest}
+$score \gets \langle 0,0,...,0 \rangle$\;
+\For{$i \gets 1,...,K$}{
+	$y \gets f_i(x)$\;
+	$score_i \gets score_i + y$\;
+}
+\Return{$\text{argmax}_k\ score_k$}
+\end{algorithm}
+
+If the classifier does not provide confidence and there is ambiguity, we pick one of the ones in conflict, but in general classifiers provide confidence. then we pick the most confident positive, if none positive vote, we pick the least confident negative.
+\begin{equation}
+	\text{prediction} = b + \sum_{i=1}^n w_i \cdot f_i
+\end{equation}
 
 OVA is quite natural and easy to implement. It also works very well in practice, so long as you do a god job choosing a good binary classification algorithm tuning its hyperparameters well.
 
 Its weakness is that it can be somewhat brittle. Intuitively, it is not particularly robus to errors in the underlying classifiers. If one classifier makes a mistake, it is possible that the entire prediction is erroneous. In fact, it is entirely possible that \emph{none} of the \(K\) classifier predicts positive (which is actually the worst scenario)!
 
 \section{All vs All}
-To develop alternative approeaches, a useful way to think about turning multiclass classification problems into binary classification problems is to think of them like tournaments. You have \(K\) teams entering a tournament, but unfortunately the sport they are playing only allows two to compete at a time. 
+To develop alternative approaches, a useful way to think about turning multiclass classification problems into binary classification problems is to think of them like tournaments. You have \(K\) teams entering a tournament, but unfortunately the sport they are playing only allows two to compete at a time. 
 
 One natural approach is to have every team compete against every other team. The team that wins the majority of its matches is declared the winner. This is the \textbf{all versus all} approach.
 
-The most natural way to think about it is as training \(K \choose 2\) classifiers. Say \(f_{ij}\) for \(1 \leq i < j \leq K\) is the classifier that pits class \(i\) against class \(j\). This classifier receives all of the class \(i\) examples as positive and all of the class \(j\) examples as negative. When a test point arrives, it is run through all \(f_{ij}\) classifiers. Every time \(f_{ij}\) predicts positive, class \(i\) gets a point; otherwise, class \(j\) gets a point. After running all \(K \choose 2\) classifiers, the class with the most votes wins.
+The most natural way to think about it is as training \(K \choose 2\) classifiers. Say \(f_{ij}\) for \(1 \leq i < j \leq K\) is the classifier that pits class \(i\) against class \(j\). This classifier receives all of the class \(i\) examples as positive and all of the class \(j\) examples as negative.
 
 \begin{algorithm}
-    \caption{AllVersusAllTrain($D^\text{multiclass}$, $BinaryTrain$)}
-    \label{alg:avatrain}
-	$f_{ij} \gets \emptyset, \forall 1 \leq i < j \leq K$\;
+\caption{AllVersusAllTrain($D^\text{multiclass}$, $BinaryTrain$)}
+\label{alg:avatrain}
+$f_{ij} \gets \emptyset, \forall 1 \leq i < j \leq K$\;
 \For{$i \gets 1,...,K-1$}{
 	$D^\text{pos} \gets$ all $x \in D^\text{multiclass}$ labeled $i$\;
 	\For{$j \gets i+1,...,K$}{
@@ -88,30 +95,38 @@ The most natural way to think about it is as training \(K \choose 2\) classifier
 	}
 }
 \Return{all $f_{ij}$}
-    \end{algorithm}
+\end{algorithm}
 
-	\begin{algorithm}
-		\caption{AllVersusAllTest(all $f_{ij}$, $x$)}
-		\label{alg:avatest}
-		$score \gets \langle 0, 0, ..., 0 \rangle$\;
-		\For{$i \gets 1,...,K-1$}{
-			\For{$j \gets i+1,...,K$}{
-			$y \gets f_{ij}(x)$\;
-			$score_i \gets score_i + y$\;
-			$score_j \gets score_j - y$\;
-			}
-		}
-	\Return{$argmax_k\ score_k$}
-		\end{algorithm}
+When a test point arrives, it is run through all \(f_{ij}\) classifiers. Every time \(f_{ij}\) predicts positive, class \(i\) gets a point; otherwise, class \(j\) gets a point. After running all \(K \choose 2\) classifiers, the class with the most votes wins.
+
+\begin{algorithm}
+\caption{AllVersusAllTest(all $f_{ij}$, $x$)}
+\label{alg:avatest}
+$score \gets \langle 0, 0, ..., 0 \rangle$\;
+\For{$i \gets 1,...,K-1$}{
+	\For{$j \gets i+1,...,K$}{
+		$y \gets f_{ij}(x)$\;
+		$score_i \gets score_i + y$\;
+		$score_j \gets score_j - y$\;
+	}
+}
+\Return{$argmax_k\ score_k$}
+\end{algorithm}
+
+In order to classify an example \(x\) with each classifier \(F_{ij}\) we have a few options: we can take the majority vote, or we can take a weighted vote based on the confidence, where
+\begin{equation*}
+	y = F_{ij}(x)\\
+	score_j = score_j + y\\
+	score_i = score_i - y
+\end{equation*}
+In this way, if \(y\) is positive, the classifier thought it was of type \(j\), it raises the score for \(j\) and lowers the score for \(i\). The analogous happens if the classifier thought it was of type \(i\).
 
 \section{OVA vs AVA}
 In terms of train time, AVA learns more classifiers, however, they are trained on much smaller data, and this tends to make it faster if the labels are equally balanced.
 
 In terms of test time, AVA has more classifiers, so often is slower.
 
-Furthermore, AVA trains on more balanced data sets, and test with more classifiers, therefore has more chances for errors.
-
-If using a binary classifier, the most common thing to do is OVA. Otherwise, use a classifier that allows for multiple labels, for example decision trees and \(k\)-NN work reasonably well, but other more sophisticated methods work better.
+Furthermore, AVA trains on more balanced data sets, and test with more classifiers, therefore has more chances for errors. If using a binary classifier, the most common thing to do is OVA. Otherwise, use a classifier that allows for multiple labels, for example decision trees and \(k\)-NN work reasonably well, but other more sophisticated methods work better.
 
 \section{Evaluation}
 

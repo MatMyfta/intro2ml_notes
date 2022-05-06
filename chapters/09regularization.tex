@@ -1,11 +1,15 @@
 \chapter{Regularization}
+
 In our learning objectice, we had a term correspond to the zero/one loss on the training data, plus a \textbf{regularizer} whose goal was to ensure that the learned function did not overfit. If you replace to zero/one loss with a surrogate loss, you obtain the following objective:
 \begin{equation}
     \min_{w,b} \sum_n l(y_n, \vec{w} \cdot \vec{x}_n + b) + \lambda R(\vec{w},b)
 \end{equation}
 From the discussion of surrogate loss function, we would like to ensure that \(R\) is convex. Otherwise, we will be back to the point where optimization becomes difficult. Beyond that, a common desire is that the components of the weight vector should be small. This is a form of \textbf{inductive bias}.
 
+Note that the optimization over the loss function is calculated on the training set, so we still need to be careful about overfitting! The minimum of the loss on the training set is generally not the same as the minimum for the test set, that is the one of our interest, because it measures the performance of our model.
+
 \section{Regularizers}
+A regularizer is an additional criterion to the loss function to make sure that we do not overfit. It is called a regularizer since it tries to keep the parameters more normal, and it is a bias on the model that forces the learning to prefer certain types of weights over others.
 
 If \(w_i\) is reasonably small, this is unlikely to have much of an effect on the classification decision. On the other hand, if \(w_i\) is large, this could have a large effect. 
 Another way to say the same thing is to look at the derivative of the predictions as a function of \(w_i\). The derivative of \(\vec{w} \cdot \vec{x} + b\) with respect to \(w_i\) is:
@@ -29,10 +33,10 @@ You can check that the 2-norm exactly corresponds to the usual Euclidean norm, a
 \begin{center}
     \vspace*{-20pt}
     \includegraphics[width=0.35\textwidth]{040}
+    \label{fig:040}
     \caption{\(p\)-norms visualized}
     \vspace*{-40pt}
 \end{center}
-\label{fig:040}
 \end{wrapfigure}
 
 When \(p\)-norms are used to regularize weight vectors, the interting aspect is how they trade-off multiple features. To see the behavior of \(p\)-norms in two dimensions, we can plot their \textbf{contour}.
@@ -40,6 +44,9 @@ When \(p\)-norms are used to regularize weight vectors, the interting aspect is 
 Figure~\ref{fig:040} shows the contours for the same \(p\)-norms in two dimensions. Each line denotes two-dimensional vectors to which this norm assignes a total value of 1. By changing the value of \(p\), you can interpolate between a square, down to a circle.
 
 In general, smaller values of \(p\) prefer sparser vectors. You can see this by noticing that the contours of small \(p\)-norms stretch out along the axes.
+
+\subsubsection{L1 and L2 norms}
+The L1 and the L2 norms both are the two most common norms, and both push the weights to have smaller values close to zero, but they do it in a slightly different manner. With the L1 regularizer we get a diamond, and it's very likely that the solution hits one of the axis, this means that one of the coordinates is different from zero, and the other is exactly zero. In the L2 regularizer we get a circle that has no corner, it is very unlikely that the meet-point is on any of axes, but it is very close to zero.
 
 \section{Minimizing with a regularizer}
 We know how to solve convex minimization problems using gradient descent.
@@ -54,7 +61,7 @@ If we can ensure that the loss with the regularizer is convex, then we could sti
 Equation~\ref{eq:gd_wit_regularizer} is convex as long as both the loss function and the regularizer are convex.
 
 \subsection{Model-based machine learning}
-There are the three step for the model-based machine learning:
+Let's revise the three steps for the model-based machine learning, and revise the objective function and the learning algorithm.
 \begin{itemize}
     \item Pick a model;
     \begin{equation}
@@ -62,29 +69,48 @@ There are the three step for the model-based machine learning:
     \end{equation}
     \item Pick a criteria to optimize, namely, pick the objective function;
     \begin{equation}
-        \sum_{i=1}^n exp(-y_i(\vec{w} \cdot x_i + b)) + \frac \lambda 2 ||\vec{w}||^2
+        \sum_{i=1}^n \exp(-y_i(\vec{w} \cdot x_i + b)) + \frac \lambda 2 ||\vec{w}||^2
     \end{equation}
     \item Develop a learning algorithm;
     \begin{equation}
-        \min_{\vec{w},b} \sum_{i=1}^n exp(-y_i(\vec{w} \cdot x_i + b)) + \frac \lambda 2 ||\vec{w}||^2
+        \min_{\vec{w},b} \sum_{i=1}^n \exp(-y_i(\vec{w} \cdot x_i + b)) + \frac \lambda 2 ||\vec{w}||^2
     \end{equation}
 \end{itemize}
 Note that the loss function penalizes examples where the prediction is different than the label; and regularizer penalizes large weights. This function is convex, thus is allowing us to use gradient descent.
 
 \begin{align}
-    \frac \delta {\delta w_j} \text{objective} &= \frac \delta {\delta w_j} \sum_{i=1}^n exp(-y_i(\vec{w} \cdot x_i + b))+ \frac \lambda 2 ||\vec{w}||^2\\
-    &= -\sum_{i=1}^n y_i x_{ij} exp(-y_i(\vec{w} \cdot x_i + b)) + \lambda w_j\\
+    \frac \delta {\delta w_j} \text{objective} &= \frac \delta {\delta w_j} \sum_{i=1}^n \exp(-y_i(\vec{w} \cdot x_i + b))+ \frac \lambda 2 ||\vec{w}||^2\\
+    &= -\sum_{i=1}^n y_i x_{ij} \exp(-y_i(\vec{w} \cdot x_i + b)) + \lambda w_j\\
 \end{align}
 That means, that the gradient descent algorithm moves a small amount in a chosen dimension towards decreasing loss using the derivative.
 \begin{align}
     w_j &= w_j - \eta \frac \delta {\delta w_j} (l(\vec{w}) + R(\vec{w},b))\\
-    w_j &= w_j + \eta \sum_{i=1}^n y_i x_{ij} exp(-y_i(\vec{w} \cdot x_i + b)) - \eta \lambda w_j
+    w_j &= w_j + \eta \sum_{i=1}^n y_i x_{ij} \exp(-y_i(\vec{w} \cdot x_i + b)) - \eta \lambda w_j
 \end{align}
+Where \(-\eta \lambda w_j\) is the regularization. If \(w_i\) is positive, the regularizer reduces \(w_i\), otherwise, if it is negative, it increases \(w_i\). This means that \(w_i\) moves towards 0.
+
+\subsubsection{Regularization with \(p\)-norms}
+\begin{itemize}
+    \item[L1] \(w_j = w_j + \eta\) loss\_correction \(- \lambda \text{sign}(w_j)\).
+    \item[L2] \(w_j = w_j + \eta\) loss\_correction \(- \lambda w_j\).
+    \item[Lp] \(w_j = w_j + \eta\) loss\_correction \(- \lambda c w_j^{p-1}\).
+\end{itemize}
+Gradient descent is not the only way to find \(w\) and \(b\), there are many other ways to find the minimum, there is a whole field called convex optimization.
+
+L1 is popular because it tends to result in sparse solutions (i.e. there are lots of zero weights). However, it is not differentiable, so it only works for gradient descent solvers. L2 is also popular for some loss functions, it can be solved directly (no gradient descent required, though often there are still iterative solvers). Lp is less popular since they don't tend to shrink the weight enough.
+
+Without regularization, the generic update is 
+\begin{equation}
+    w_j = w_j + \eta y_i x_{ij} c
+\end{equation}
+where \(c\) can be the exponential or the hinge loss.
 
 \newpage
 \begin{exercise}[topsep=20pt, itemsep=10pt]
     \ex What is the regularization? What are regularizers?
+    \ex[!] Why is regularization needed?
     \ex Describe the \(p\)-norm. How does it change when tuning the \(p\) parameter?
+    \ex[!] What are the differences between L1 and L2?
     \ex How do we solve convex minimization problems with a regularizer?
     \ex[!] How does the regularization discourage overfitting?
     \ex Describe the three steps for the mode-based machine learning.

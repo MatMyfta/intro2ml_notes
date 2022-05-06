@@ -17,13 +17,30 @@ The dot-product between two vectors \(\vec{a}\) and \(\vec{b}\) is defined as:
     a \cdot b = \sum_{j=1}^m a_jb_j
 \end{equation}
 
+\section{Model-Based Machine Learning}
+For the Model-Based Machine Learning there are 3 steps to follow:
+\begin{enumerate}
+    \item Pick a model: for example an hyperplane, a decision tree, and so on. A model is defined by a collection of parameters, the parameters for decision tree are the structure of the tree, which features each node splits on, and the predictions at the leaves, while the parameters of the perceptron are the weights and the b value.
+    \begin{equation}
+        b + \sum_{j=1}^n w_jf_j = 0
+    \end{equation}
+    \item Pick a criteria to optimize (the objective function), namely, pick the objective function: what criteria do decisiont trees learning and perceptron learning optimize?
+    \begin{equation}
+        \sum_{i=1}^n 1 \left[ y_i(w \cdot x_i + b) \leq 0 \right]
+    \end{equation}
+    \item Develop a learning algorithm: the algorithm should try to minimize the criteria, sometimes in a heuristic way (non-optimally), sometimes in an exact way.
+    \begin{equation}
+        \min_{\vec{w},b} \sum_{i=1}^n1 \left[ y_i(w \cdot x_i + b) \leq 0 \right]
+    \end{equation}
+\end{enumerate}
+
 \section{The optimization framework for Linear Models}
 We have already seen the perceptron as a way of finding a weight vector \(\vec{w}\) and bias \(b\) that do a good job of separating positive training examples from negative training examples. The goal of the perceptron was to find a separating hyperplane for some training data set. Not all data sets are linearly separable. In the case that your training data \emph{isn't} linearly separable, you might want to find the hyperplane that makes the \emph{fewest errors} on the training data. We can write this down as a formal mathematics optimization problem as follows:
 \begin{equation}
     \label{eqn:optimization}
     \min_{w,b} \sum_n 1[y_n(\vec{w} \cdot \vec{x} + b) > 0]
 \end{equation}
-The objective function is the thing we are trying to minimize. In this case, the objective function is simply the \textbf{error rate} of the linear classifier parametrized by \(\vec{w}\), \(b\).
+This function counts how many times the prediction is erroneous. The objective function is the thing we are trying to minimize. In this case, the objective function is simply the \textbf{error rate} of the linear classifier parametrized by \(\vec{w}\), \(b\).
 
 We know that the perceptron algorithm is guaranteed to find parameters for this model if the data is linearly separable. In other words, if the optimum of \ref{eqn:optimization} is zero, then the perceptron will efficiently find parameters for this model.
 
@@ -36,13 +53,15 @@ There are four common surrogate loss functions, each with their own properties:
 \begin{align}
     \text{Zero/one}& \qquad l^{(0/1)}(y,\hat{y}) = 1[y\hat{y} \leq 0] \\
     \text{Hinge}& \qquad l^\text{(hin)}(y,\hat{y}) = \max\{0,1-y\hat{y}\} \\
-    \text{Logistic:}& \qquad l^\text{(log)}(y,\hat{y}) = \frac 1 {\log 2} \log (1 + exp [-y\hat{y}]) \\
+    \text{Logistic:}& \qquad l^\text{(log)}(y,\hat{y}) = \frac 1 {\log 2} \log (1 + \exp [-y\hat{y}]) \\
     \text{Exponential:}& \qquad l^\text{(exp)}(y,\hat{y}) = exp[-y\hat{y}] \\
     \text{Squared:}& \qquad l^\text{(sqr)}(y,\hat{y}) = (y-\hat{y})^2
 \end{align}
 
 There are two big differences in these loss functions. The first is how \emph{upset} they get by erroneous predictions. In the case of hinge and logistic loss, the growth of the function as \(\hat{y}\) goes negative is linear. For squared and exponential loss, it is super-linear. This means that exponential loss would rather get a few examples a little wrong than one example really wrong.
 The other difference is how they deal with very confident correct predictions. Once \(y\hat{y}>1\), hinge loss does not care any more, but logistic and exponential loss still think you can do better. On the other hand, squared loss thinks it's just as bad to predict \(+3\) on a positive example as it is to predict \(-1\) on a positive example.
+
+Now, if we pick our model \(b + \sum_{i=1}^m w_j f_j = 0\) and the exponential loss as a convex surrogate loss function \(sum_{i=1}^n \exp(-y_i (w \cdot x_i + b))\), and we develop a learning algorithm \(arg \min_{w,b} \sum_{i=1}^n \exp(-y_i (w \cdot x_i + b)))\), we have choose this, because this is solving an optimization problem. We can solve it using gradient descent.
 
 \begin{figure}[t]
 \begin{center}
@@ -64,7 +83,7 @@ For example, consider the function \(f(x_1,x_2,x_3) = x_1^3+5x_1x_2-3x_2x_3^2\).
 \begin{align}
     \nabla_x f = \langle 3x_1^2 + 5x_2, 5x_1-3x_3^2, -6x_2x_3 \rangle
 \end{align}
-Note that if \(f : \mathbb{R}^ \to \mathbb{R}\), then \(\nabla f : \mathbb{R}^D \to \mathbb{R}^D\). If you evaluate \(\nabla f(x)\), this will give you the gradient at \(\vec{x}\), a vector in \(\mathbb{R}^D\). This vector can be interpreted as the direction of \textbf{steepest ascent}: namely, if you were to traver an infinitesimal amount in the direction of the gradient, you would go uphill the most.
+Note that if \(f : \mathbb{R} \to \mathbb{R}\), then \(\nabla f : \mathbb{R}^D \to \mathbb{R}^D\). If you evaluate \(\nabla f(x)\), this will give you the gradient at \(\vec{x}\), a vector in \(\mathbb{R}^D\). This vector can be interpreted as the direction of \textbf{steepest ascent}: namely, if you were to traver an infinitesimal amount in the direction of the gradient, you would go uphill the most.
 
 \section{Optimization with gradient descent}
 Suppose you are trying to find the maximum of a function \(f(\vec{x})\). The optimizer maintains a current estimate of the parameter of interest, \(\vec{x}\). At each step, it measures the \textbf{gradient} of the function it is trying to optimize. This measurement occurs at the current location, \(\vec{x}\). Call the gradient \(\vec{g}\). It then takes a step in the direction of the gradient, where the size of the step is controlled by a parameter \(\eta\). The complete step is \(\vec{x} \gets \vec{x} + \eta \vec{g}\). This is the basic idea of \textbf{gradient ascent}.
@@ -113,9 +132,9 @@ Let's now take this result and return to expand the equation \ref{eqn:loss_deriv
 \end{align}
 That means that for each example \(x_i\), the \textbf{exponential update rule} is:
 \begin{equation}
-    w_j = w_j + \eta y_i x_{ij} exp(-y_i (w \cdot x_i + b))
+    w_j = w_j + \eta y_i x_{ij} \exp(-y_i (w \cdot x_i + b))
 \end{equation}
-If you remember from Algorithm \ref{alg:perceptron} perceptron algorithm, there is a similarity: \(w_i \gets w_i + f_i*label\). In practice: \(w_j \gets w_j + x_{ij} y_i c\), where \(c = \eta exp(-y_i (w \cdot x_i + b))\).
+If you remember from Algorithm \ref{alg:perceptron} perceptron algorithm, there is a similarity: \(w_i \gets w_i + f_i*label\), that is updated only when the prediction fails. In practice, with gradient descent we always update: \(w_j \gets w_j + x_{ij} y_i c\), where \(c = \eta \exp(-y_i (w \cdot x_i + b))\) controls how aggressive the update is.
 
 \newpage
 \begin{exercise}[topsep=20pt,itemsep=10pt]
