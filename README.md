@@ -22,13 +22,13 @@ This repository contains my personal notes about the course Introduction to Mach
 - Ranking
 - Neural Networks
 
-### Part Two: Unsupervised Learning
+### Part Three: Unsupervised Learning
 
 - Unsupervised Learning
 - Clustering
 - Deep Generative Models
 
-### Part Two: Reinforcement Learning
+### Part Four: Reinforcement Learning
 
 - Reinforcement Learning
 
