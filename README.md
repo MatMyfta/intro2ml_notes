@@ -2,6 +2,36 @@
 
 This repository contains my personal notes about the course Introduction to Machine Learning of University of Trento.
 
+## Contents
+
+### Part One: Basics
+
+- Introduction
+- Data, Features, Models
+- Generalization error, Models, Hypothesis space
+
+### Part Two: Supervised Learning
+
+- k-Nearest Neighbor
+- Linear Models
+- Decision Trees
+- Multiclass Classification
+- Gradient Descent
+- Regularization
+- Support Vector Machines
+- Ranking
+- Neural Networks
+
+### Part Two: Unsupervised Learning
+
+- Unsupervised Learning
+- Clustering
+- Deep Generative Models
+
+### Part Two: Reinforcement Learning
+
+- Reinforcement Learning
+
 ## Structure
 
 All the utils of the project are collected into the principal file, called [ml.pdf](ml.pdf). The folders are organized as follows:
