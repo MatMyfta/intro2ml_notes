@@ -31,8 +31,10 @@ Multilabel applications examples are:
 Suppose we start a new web search company. Like other search engines, a userinputs a query and a set of documents is retrieved. Our goal is to rank the resulting documents based on relevance to the query. The ranking problem is to take a collection of items and sort them according to some notion of preference. One of the trickiest parts of doing ranking through learning is to properly define the loss function.
 
 \subsection{Black box approach}
+We can implement the algorithm for the preference function with the perceptron by creating the vector of the features of the two examples.
+
 Given a generic binary classifier, we can use it to solve our new problem.
-\begin{figure}[h!]
+\begin{figure}[t!]
     \centering
     \includegraphics[width=1\textwidth]{047}
     \caption{Black box approach to ranking.}
@@ -61,9 +63,26 @@ We need features that compare the two examples \(a_i\) and \(b_i\), this new vec
 \subsection{Preference function}
 For each query, we are also given a collection of documents, together with a desired ranking over those documents. We'll assume that we have \(N\)-many queries and for each query we have \(M\)-many documents. The goal is to train a binary classifier to predict a \textbf{preference function}. Given a query \(q\) and two documents \(d_i\) and \(d_j\), the classifier should predict whether \(d_i\) should be preferred to \(d_j\) with respect to the query \(q\).
 
+\subsection{Bipartite Ranking}
+Bipartite ranking algorithms are useful for bipartite ranking problems. A \textbf{Bipartite ranking problem} is one in which you are trying to predict a binary response, for instance "is this document relevant or not?".
+
+The only goal is to ensure that all the relevant documents are ahead of all the irrelevant documents. There is no notion that one relevant document is more relevan than another.
+
+For non-bipartite ranking problems, more sophisticated methods can be used.
+
+\begin{figure}[t!]
+    \centering
+    \includegraphics[width=0.75\textwidth]{099}
+    \caption{Bipartite ranking example}
+\end{figure}
+
 \section{Algorithm}
+A naive solution for the training algorithm of the ranking is pretty simple. As we sayed, the goal is to predict a preference function that, given a query and two documents, the clasifier should predict whether the first should be preferred to the second with respect to the query. In the following algorithm, we will assume \(N\)-many queries and for each quary we have \(M\)-many documents. 
+
+For every \(n\) and every pair \(i \neq j\), we wil create a binary classification example based on features \(\vec{x}_{nij}\) (that denotes the features associated with comparing document \(i\) to document \(j\) on query \(n\)). This example is positive if \(i\) is preferred to \(j\), otherwise it is negative.
+
 \begin{algorithm}
-    \caption{NaiveRankTrain($RankingData$, BinaryTrain)}
+    \caption{NaiveRankTrain(RankingData, BinaryTrain)}
     \label{alg:naive_rank_train}
 $D \gets [\ ]$\;
 \For{$n \gets 1$ to $N$}{
@@ -80,6 +99,8 @@ $D \gets [\ ]$\;
 \Return{BinaryTrain($D$)}
 \end{algorithm}
 
+We can describe a naive solution for the test phase as well. In this case we initialize a list of scorest to 0, than for each document \(d_i\) and \(d_i\) (\(i \neq j\)), we compute the score with our preference function; then we add the score to \(d_i\) and subtract the score to \(d_j\). At the end we return the queries sorted by the computed scores.
+
 \begin{algorithm}
     \caption{NaiveRankTest($f$, $\hat{x}$)}
     \label{alg:naive_rank_test}
@@ -92,12 +113,9 @@ $score \gets \langle 0, 0, ..., 0 \rangle$\;
 \Return{$score$.sort()}
 \end{algorithm}
 
-\section{Bipartite Ranking}
-Bipartite ranking algorithms are useful for bipartite ranking problems. A \textbf{Bipartite ranking problem} is one in which you are trying to predict a binary response, for instance "is this document relevant or not?".
+The problem with this approach is that it's impossible to tell --- just by looking at its output on one \(i,j\) pair --- how good the overall ranking is. This is because there is the intermediate step of turning these pariwise predictions into a coherent ranking.
 
-The only goal is to ensure that all the relevant documents are ahead of all the irrelevant documents. There is no notion that one relevant document is more relevan than another.
-
-For non-bipartite ranking problems, more sophisticated methods can be used.
+These algorithms actually work quite well in the case of bipartite ranking problems. This is essentially beause the only goal in bipartite ranking problems is to ensure that all the relevant documents are ahead of all the irrelevant documents. 
 
 \section{Weighted binary classification}
 For non-bipartite ranking problems, we can do better. First, when the preferences thath we get at training time are more nuanced than "relevant or not", we can incorporate these preferences at training time. Effectively, we want to give a higher weight to binary problems that are very different in terms of preference than others. Second, rather than producing a list of scores and then calling an arbitrary sorting algorithm, we can actually use the preference function as the sorting function inside our own implementation of quicksort.
@@ -162,3 +180,17 @@ At test time, instead of predicting scores and then sorting hte list, as in the 
 \Return{$left \oplus \langle p \rangle \oplus right$}
 \end{algorithm}
 This algorithm is better than the naive algorithm in at least two ways. First, it only makes \(O(M \log_2 M)\) calls to \(f\) rather than \(O(M^2)\) calls in the naive case. Second, it achieves a better error bound.
+
+\newpage\null
+\newpage
+\begin{exercise}[topsep=20pt,itemsep=10pt]
+    \ex[!] Describe the ranking.
+    \ex What is multilabel classification? Give some application example.
+    \ex[!] Can I use the perceptron to do ranking?
+    \ex What is the preference function?
+    \ex Describe the bipartite ranking problem.
+    \ex[!] How can the binary classifier problem be solved?
+    \ex Describe the weighted binary classification.
+    \ex Provide and describe the weighted ranking training algorithm.
+    \ex Provide and describe the weighted ranking testing algorithm.
+\end{exercise}
