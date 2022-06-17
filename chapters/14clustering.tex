@@ -176,3 +176,26 @@ Hierarchical clustering algorithms produce a set of nested clusters organized as
     \caption{Hierarchical Clustering Dendrogram example.}
     \label{fig:080}
 \end{figure}
+
+\paragraph{Hierarchical clustering}
+Produce a set of nested clusters organized as a hierarchical tree (\textbf{dendogram}).
+\paragraph{Agglomerative clustering} First merge very similar instances and then incrementally build larger clusters out of smaller clusters.
+\begin{algorithm}
+    \caption{Agglomerative clustering}
+    Each instance in its own cluster\;
+    \Repeat{until there is only one cluster}{
+        Pick the two closest clusters\;
+        Merge them into a new cluster\;
+    }
+    \Return{Family of clusterings represented by a dendogram}
+\end{algorithm}
+
+\newpage
+\begin{exercise}
+    \ex What are the issues of the \(k\)-means clustering?
+    \ex How do we measure the distance in \(k\)-means?
+    \ex What are the types of clustering algorithms?
+    \ex Describe the EM clustering. What type of clustering is it?
+    \ex Describe the Spectral Clustering.
+    \ex Describe the Hierarchical Clustering and the Agglomerative Clustering.
+\end{exercise}

@@ -281,7 +281,7 @@ So we can use the SDG with \textbf{momentum}, that introduces a new variable \(\
         $\hat{g} \gets \nabla_\Theta L\left( f(\vec{x}^{(i)}; \Theta), \vec{y}^{(i)} \right)$\;
         Compute the velocity update:\\
         $\vec{v} \gets \alpha \vec{v} - \epsilon \hat{g}$\;
-        Apply Update: $\Theta \gets \Theta - \epsilon \hat{g}$\;
+        Apply Update: $\Theta \gets \Theta - \vec v$;
     }
     
 \end{algorithm}
@@ -456,3 +456,22 @@ Once we decided the architecture of the encoder and the consequent architecture 
 \end{figure}
 
 Autoencoders are aimed to learn the latent representation \(z\), so the most common use of autoencoders is to use the common feature \(z\) in order to initialize a feature model. This means that once we have trained the autoencoder, we throw away the decoder, and we only take the latent representation \(z\) and we append the loss funcion \(\hat{y}\) and the the encoder now can be used to have a better initialization of a supervised model.
+
+\newpage
+\begin{exercise}[topsep=20pt,itemsep=10pt]
+    \ex Describe a general neural network.
+    \ex[!] Describe the Feedforward Neural Networks.
+    \ex[!] What is backpropagation? Describe it's steps.
+    \ex How do we train a neural network?
+    \ex Describe the Batch Gradient Descent.
+    \ex Describe the Stohastic Gradient Descent.
+    \ex[!] What is the momentum? How do we update the neural network with the momentum?
+    \ex Describe the momentum paramether \(\alpha\), how does it influence the momentum?
+    \ex[!] Describe the Convolutional Neural Networks.
+    \ex[!] Describe the Convolution layer.
+    \ex[!] What is the non-linearity in the neural network? Where do we apply it?
+    \ex[!] Describe the Spatial Pooling.
+    \ex[!] What is a Recurrent Neural Network? For what kind of tasks do we use it?
+    \ex[!] Describe the Autoencoders.
+    \ex[!] What is ResNet?
+\end{exercise}

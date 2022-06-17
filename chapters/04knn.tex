@@ -32,7 +32,7 @@ In Figure~\ref{fig:029} we have an example of \(k\)-NN classification. The test 
 To classify an example \(d\) you have to find the \(k\) nearest neighbors of \(d\), and then choose as the label the majority label within the \(k\) nearest neighbors. But how do we measure the \emph{nearest}?
 
 \subsubsection{Euclidean distance}
-The most common choice, is to compute the \textbf{euclidean distance} between the test sample and  his neighbors.
+One possibility is to compute the \textbf{euclidean distance} between the test sample and  his neighbors.
 
 In two dimensions, given two points \(A(a_1, a_2)\) and \(B(b_1, b_2)\), the euclidean distance is computed as follows:
 \[D(a,b) = \sqrt{(a_1-b_1)^2 + (a_2-b_2)^2}\]
@@ -52,6 +52,8 @@ The min-max scaling scales the data to a fixed range between 0 and 1.
 \begin{equation*}
     x_\text{norm} = \frac {x-x_\text{min}} {x_\text{max} - x_\text{min}}
 \end{equation*}
+
+The euclidean distance is the choice of the \(k\)-Nearest Neighbor algorithm.
 
 Measuring distance (or similarity) is a domain-specific problem and there are many, many different variations. The similarity is a numberical measure of how alike two data objects are, it is higher when objects are more alike, and often falls in the range \([0,1]\). The distance is a numerical measure of how different are two data objects, it is lower when objects are more alike, and the minimum dissimilarity is often 0.
 
@@ -121,7 +123,7 @@ However, provided you have sufficient computing resources to speedily handle the
 At scale, this would look like recommending products on Amazon, article on Medium, movies on Netflix, or videos on YouTube. Although, we can be certain they all use more efficient means of making recommendations due to the enormous volume of data they process.
 
 \subsection{Weighted \(k\)-Nearest Neighbor}
-Weighted \(k\)-NN is a modified version of \(k\)-NN. One of the many issues that affect the performance of the \(k\)-NN algorithm is the choice of the hyperparameter \(k\). The intuition behind weighted \(k\)-NN, is to give more weight to the points which are nearby and less weight to the points which are farther away. Any function can be used as a kernel funcion for the weighted \(k\)-NN classifier whose value decreases as the distance increases.
+Weighted \(k\)-NN is a modified version of \(k\)-NN. One of the many issues that affect the performance of the \(k\)-NN algorithm is the choice of the hyperparameter \(k\). The intuition behind weighted \(k\)-NN, is to give more weight to the points which are nearby and less weight to the points which are farther away.
 
 The \(k\)-nearest neighbor classifier can be viewed as assigning the \(k\) nearest neighbors a weight \(\frac 1 k\) and all others \(0\) weights. This can be generalized to weighted nearest neighbour classifiers. That is, where the \(i\)-th nearest neighbour is assigned a weight \(w_{ni}\) with \(\sum_{i=1}^nw_{ni}=1\). 
 
@@ -153,11 +155,11 @@ Note that the function \(1\) is called \emph{indicator function}, that is define
     \ex Describe the \(k\)-NN algorithm.
     \ex[!] Describe the training and inference phases.
     \ex[!] Is \(k\)-NN a parametric model? Why?
-    \ex How are the nearest neighbours computed? Provide the definition of the euclidean distance, the minkowski distance, and the cosine similarity.
+    \ex How are the nearest neighbours computed? Provide the definition of the euclidean distance.
     \ex Provide the pseudocode of the \(k\)-NN classification algorithm.
     \ex What is the bottleneck at computational level of \(k\)-NN?
-    \ex What is the kernel function of \(k\)-NN?
+    \ex[!] Why does \(k\)-NN suffer from \emph{curse of dimensionality}?
     \ex What are the decision boundaries?
-    \ex How do we choose \(k\)?
+    \ex[!] How do we choose \(k\)?
     \ex Describe the weighted \(k\)-NN and its algorithm.
 \end{exercise}

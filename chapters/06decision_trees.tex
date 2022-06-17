@@ -213,17 +213,17 @@ Split functions are optimized on randomly sampled features, or are sampled compl
 \caption{Random Forest Learning}
 \label{alg:perceptron}
 \ForEach{$b \gets 1$ to $B$}{
-    Draw a boostrap sample $\vec{Z}^*$ of size $N$ from the training data\;
+    Draw a boostrap sample $\vec Z^*$ of size $N$ from the training data\;
     Grow a random-forest tree $T_b$ to the bootstrapped data\;
-    \ForEach{terminal node of $T_b$}{
-        \Repeat{minimum node size $n_\min$ is reached}{
+    \ForEach{terminal node $\in$ $T_b$}{
+        \Repeat{minimum node size $n_\text{min}$ is reached}{
             Select $m$ variables at random from the $p$ variables\;
             Pick the best variable/split-point among the $m$\;
             Split the node into two daughter nodes\;
         }
     }
 }
-\Return{Output the ensemble of trees ${\{T_b\}^B}_1$}
+\Return{Output the ensemble of trees $T_b$}
 \end{algorithm}
 
 While random forests often achieve higher accuracy than a single decision tree, they sacrifice the intrinsic interpretability present in decision trees. They are very powerful, often work well without heavy tuning of the parameters, and don't require scaling of the data. Essentially, they share all of the benefits of decision trees, while making up for some of their deficiencies.

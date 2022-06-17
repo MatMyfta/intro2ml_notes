@@ -78,7 +78,7 @@ The \textbf{principal components} of a collection of points in a real coordinate
     \end{center}
     \label{fig:069}
 \end{wrapfigure}
-In a nutshell, we have a set of data points that are represented by black crosses symbols in Figure~\ref{fig:069}. We want to find the direction the direction that explains the maximum variance of the data, in this case is the direction indicated by the red line --- that is our principal components. Our second principal component is orthogonal to the first principal component.
+In a nutshell, we have a set of data points that are represented by black crosses symbols in Figure~\ref{fig:069}. We want to find the direction that explains the maximum variance of the data, in this case is the direction indicated by the red line --- that is our principal component. Our second principal component is orthogonal to the first principal component.
 
 When we found our components, now the directions lead us to a new coordinate system. The way PCA allows us to do dimensionality reduction is by dropping the dimennsions of least variance.
 \begin{figure}[h!]
@@ -97,7 +97,7 @@ Once we defined our reference point \(\vec{c}\) we are interested in maximizing 
 \begin{equation}
     \mathbb{E}\left[t\right] = \frac 1 n \sum_{i=1}^n t_i = \frac 1 n \sum_{i=1}^n (\vec{x}_i - \vec{c})^T \vec{w} = \bar{\vec{x}}^T \vec{w} - \vec{c}^T \vec{w}
 \end{equation}
-Where \(\bar{\vec{x}} = \frac 1 n \sum_i x_i\), now we can compute the variance:
+Where \(\bar{\vec{x}} = \frac 1 n \sum_i x_i\) is the mean, now we can compute the variance:
 \begin{align}
     \mathbb{V}ar\left[t\right] &= \frac 1 n \sum_{i=1}^n \left(t_i - \mathbb{E}[t]\right)^2 = \frac 1 n \sum_{i=1}^n \left[(\vec{x}_i - \bar{\vec{x}})^T \vec{w}\right]^2\\
     & = \frac 1 n \sum_{i=1}^n \left(\bar{\vec{x}}_i^T \vec{w}\right)^2 = \vec{w}^T \left[ \frac 1 n \bar{X}\bar{X}^T \right] \vec{w} = \vec{w}^T C \vec{w}
@@ -105,7 +105,7 @@ Where \(\bar{\vec{x}} = \frac 1 n \sum_i x_i\), now we can compute the variance:
 where \(t_i = (\vec{x}_i - \vec{c})^T \vec{w}\), \(\bar{X} = [\bar{\vec{x}}_1, \bar{\vec{x}}_2, ..., \bar{\vec{x}}_n]\), and \(C = \left[ \frac 1 n \bar{X}\bar{X}^T \right]\) is the covariance matrix.
 
 \subsection{Eigenvalue Decomposition}
-Let \(A \in \mathbb{R}^{m \times m}\), symmetric. There exists \(U = \left[ \vec{u}_1, \vec{u}_2, ..., \vec{u}_m \right] \in \mathbb{R}^{m \times m} and \vec{\lambda} = (\lambda_1, \lambda_2, ..., \lambda_m)^T \in \mathbb{R}^{m}\) such that:
+Let \(A \in \mathbb{R}^{m \times m}\), symmetric. There exists \(U = \left[ \vec{u}_1, \vec{u}_2, ..., \vec{u}_m \right] \in \mathbb{R}^{m \times m}\) and \(\vec{\lambda} = (\lambda_1, \lambda_2, ..., \lambda_m)^T \in \mathbb{R}^{m}\) such that:
 \begin{equation}
     A = U \Lambda U^T = \sum_{j=1}^m \lambda_j \vec{u}_j \vec{u}_j^T \qquad \text{and} \qquad U^T U = UU^T = I
 \end{equation}
@@ -159,6 +159,14 @@ The proof is similar to the one we already saw.
 To summarize, we can provide the algorithm that allows us to compute the principal components through eigenvalue decomposition.
 
 Given data points \(X = \left[\vec{x}_1, \vec{x}_2, ..., \vec{x}_n \right]\), we apply some centering \(\bar{X} = X - \frac 1 n X 1_n 1_n^T\), where \(1_n\) is a vector of ones, so we take our data points vector and subtract the centres (mean) of the data points. Ones we have the center, we compute the covariance matrix \(C = \frac 1 n \bar{X} \bar{X}^T\), and then we can compute the eigenvalue decomposition \(U\), \(\lambda = eig(C)\). Our principal components will be \(W = U = \left[ \vec{u}_1, \vec{u}_2, ..., \vec{u}_m \right]\), with variances \(\lambda = \left( \lambda_1, \lambda_2, ..., \lambda_m \right)\).
+\begin{algorithm}
+    \caption{PCA using ED}
+    \KwData{$X=\left[x_1,x_2,\ldots,n_n\right]$}
+    $\bar X = X - \frac 1 n X 1_n 1_n^T$\;
+    $C = \frac 1 n \bar X \bar X^T$\;
+    $U$, $\lambda = $ eig$(C)$\;
+    \Return{Principal components $W=U=[u_1,u_2,\ldots,u_m]$ and variances $\lambda = (\lambda_1, \lambda_2, \ldots, \lambda_m)$}
+\end{algorithm}
 
 \subsection{PCA Using Singular Value Decomposition (SVD)}
 \subsubsection{Singular Value Decomposition}
@@ -169,7 +177,13 @@ Let \(A \in \mathbb{R}^{m \times n}\). There exist \(U \in \mathbb{R}^{m \times 
 
 \subsubsection{PCA with SVD}
 In order to use PCA, we have to compute SVD of \(\bar{X}: U, \vec{s}, V = SVD(\bar{X})\). The principal components are \(U = \left[ \vec{u}_1, \vec{u}_2, ..., \vec{u}_m \right]\), and the variances are \(\left( \frac {s_1^2} n, \frac {s_2^2} n, ...,  \frac {s_k^2} n \right)\). This because \(\bar{X} = USV^T\), and \(C = \frac 1 n \bar{X} \bar{X}^T = \frac 1 n USV^T VSU^T = U \frac {s^2} n U^T\), where \(\frac {s^2} n\) corresponds to \(\Lambda\) in the case of the eigenvalue decomposition.
-
+\begin{algorithm}
+    \caption{PCA using SVD}
+    \KwData{$X=\left[x_1,x_2,\ldots,n_n\right]$}
+    $\bar X = X - \frac 1 n X 1_n 1_n^T$\;
+    $U$, $s$, $V = $ SVD$(\bar X)$\;
+    \Return{Principal components $W=U=[u_1,u_2,\ldots,u_k]$ and variances $\lambda = \left( \frac {s_1^2} n, \frac {s_2^2} n, \ldots, \frac {s_k^2} n \right)$}
+\end{algorithm}
 \subsection{Dimensionality Reduction Using PCA}
 \begin{wrapfigure}{l}{0.35\textwidth}
     \begin{center}
@@ -235,7 +249,30 @@ The algorithm that is used to minimize the objective function is an iterative al
     \end{equation}
 \end{enumerate}
 
+\begin{algorithm}
+    \caption{$k$-means}
+    Use some initialization strategy to get some initial cluster centroids $\mu_1,\ldots,\mu_k$\;
+    \While{clusters change}{
+        Assign each datapoint to the closest centroid forming new clusters\;
+        $\mathcal C_j = \{i \in \{1,\ldots,n\} : j = \arg \min_l ||\vec x_i - \mathcal \mu_l\}$\;
+        Compute the cluster centroids $\mu_1,\ldots,\mu_k$\;
+    }
+\end{algorithm}
+
 \subsection{Properties}
 The algorithm is guaranteed to converge, because it strictly improves the objective if there is at least a cluster change and the set of possible partitions is finite. It is not guaranteed to find the global minimum but a local one. the problem is NP-hard even on the plane (\(d=2\)). 
 
 Furthermore, it is sensitive to the scale o features. Features normalization is required in case of features with different scales.
+
+\newpage
+\begin{exercise}
+    \ex What is dimensionality reduction?
+    \ex Describe the clustering.
+    \ex Describe the density estimation.
+    \ex What is Principal Component Analysis?
+    \ex Describe the PCA using the eigenvalue decomposition.
+    \ex Describe the PCA using the singular value decomposition.
+    \ex How can we use PCA for dimensionality reduction?
+    \ex Describe the \(k\)-means clustering.
+    \ex What are the properties of the \(k\)-means clustering?
+\end{exercise}
