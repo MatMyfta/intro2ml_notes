@@ -233,13 +233,11 @@ In BGD, all the training data is taken into consideration to take a single step.
     \label{alg:batch_gradient_descent}
 \KwData{Learning rate $\epsilon_k$}
 \KwData{Initial parameter $\Theta$}
-
     \While{stopping criteria is not met}{
         Compute gradient estimate over $N$ examples:\\
         $\hat{g} \gets \frac 1 N \nabla_\Theta \sum_i L\left( f(\vec{x}^{(i)}; \Theta), \vec{y}^{(i)} \right)$\;
         Apply Update: $\Theta \gets \Theta - \epsilon \hat{g}$\;
     }
-    
 \end{algorithm}
 
 A pro of this algorithms is that the gradient estimates are stable, on the other hand it need to compute gradients over the entire training for one update.

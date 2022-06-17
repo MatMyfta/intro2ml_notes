@@ -64,7 +64,7 @@ The formulation of the SVM optimization problem with slack variables is: Find \(
     and \(\forall \{(\vec{x}_i, y_i)\}\), \(y_i(\vec{w}^T \vec{x}_i + b) \geq 1 - \zeta_i\)
 \end{itemize}
 \begin{align*}
-    &\min_{\vec{w},b} ||\vec{w}||^2\\ + C \sum_i \zeta_i
+    &\min_{\vec{w},b} ||\vec{w}||^2\\ + C \sum_i \zeta_i\\
     \text{subject to: } &y_i(\vec{w} \cdot \vec{x}_i + b) \geq 1 - \zeta_i \quad \forall i,\ \zeta \geq 0
 \end{align*}
 
